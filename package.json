@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "babel-node ./bin/www",
-    "eslint": "eslint **/*.js **/*.json **/*.vue",
-    "eslint:fix": "eslint **/*.js **/*.json **/*.vue --fix"
+    "eslint": "eslint ./**/**/*.js ./**/*.json ./**/*.vue --quiet",
+    "eslint:fix": "eslint ./**/**/*.js ./**/*.json ./**/*.vue --quiet --fix"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

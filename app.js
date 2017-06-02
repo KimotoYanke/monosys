@@ -10,6 +10,8 @@ import restify from 'express-restify-mongoose'
 import index from './routes/index'
 import users from './routes/users'
 
+import thing from './models/thing'
+
 const app = express()
 const router = express.Router();
 
@@ -34,10 +36,7 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static(path.join(__dirname, 'dist')))
 
-restify.serve(router, mongoose.model('thing', new mongoose.Schema({
-	name: { type: String, required: true },
-	comment: { type: String }
-})));
+restify.serve(router, thing);
 router.use(index);
 app.use(router);
 
@@ -59,4 +58,4 @@ app.use(function(err, req, res) {
 	res.render('error')
 })
 
-module.exports = app
+export default app
