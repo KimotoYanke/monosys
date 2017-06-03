@@ -4,11 +4,23 @@
 		"node": true,
 		"browser": true,
 		"commonjs": true,
+		"mocha": true,
 		"es6": true
 	},
 	"extends": ["eslint:recommended","vue"],
+	"plugins":[
+		"json"
+	],
 	"parserOptions": {
 		"sourceType": "module"
+	},
+	"globals": {
+		"assert": false,
+		"expect": false,
+		"should": false,
+		"sinon": false,
+		"Promise": false,
+		"ES6Promise": false
 	},
 	"rules": {
 		"indent": [

@@ -1,5 +1,4 @@
 var path = require('path')
-var webpack = require('webpack')
 
 module.exports = {
 	entry: './app/main.js',
@@ -11,33 +10,41 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js$/,
-				exclude: /node_modules/, 
+				exclude: /node_modules/,
 				use: {
-					loader:'babel-loader',
-					options:{
+					loader: 'babel-loader',
+					options: {
 						presets: ['es2015']
 					}
-				},
+				}
 			},
 			{
 				test: /\.vue$/,
 				use: {
-					loader:'vue-loader',
-				},
+					loader: 'vue-loader'
+				}
 			},
 			{
 				test: /\.pug$/,
 				use: {
-					loader:'pug-loader',
-				},
+					loader: 'pug-loader'
+				}
 			},
-		],
+			{
+				test: /\.css$/,
+				use: [{
+					loader: 'style-loader'
+				}, {
+					loader: 'css-loader'
+				}]
+			}
+		]
 
 	},
-	resolve:{
+	resolve: {
 		alias: {
 			vue: 'vue/dist/vue.js'
-		},
+		}
 	},
-	devtool: 'inline-source-map' 
+	devtool: 'inline-source-map'
 }

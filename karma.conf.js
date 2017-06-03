@@ -1,12 +1,11 @@
-var webpack = require('webpack')
-var webpackConfig = require('./webpack.config.js')
+// var webpack = require('webpack')
 
-module.exports = function(config) {
+module.exports = function (config) {
 	config.set({
 
 		basePath: '',
 
-		frameworks: ['mocha','chai'],
+		frameworks: ['mocha', 'chai'],
 
 		files: [
 			'app/test/*.spec.js'
@@ -25,7 +24,7 @@ module.exports = function(config) {
 			reporters: [
 				{ type: 'lcov' },
 				{ type: 'html' }
-			],
+			]
 		},
 
 		port: 9876,
@@ -46,21 +45,21 @@ module.exports = function(config) {
 				rules: [
 					{
 						test: /\.vue$/,
-						loaders: ['istanbul-instrumenter-loader','vue-loader']
+						loaders: ['istanbul-instrumenter-loader', 'vue-loader']
 					},
 					{
 						test: /\.js$/,
-						loaders: ['istanbul-instrumenter-loader','babel-loader']
+						loaders: ['istanbul-instrumenter-loader', 'babel-loader']
 					}
-				],
+				]
 
 			},
-			resolve:{
+			resolve: {
 				alias: {
 					vue: 'vue/dist/vue.js'
-				},
+				}
 			},
-			devtool: 'inline-source-map' 
-		},
+			devtool: 'inline-source-map'
+		}
 	})
 }

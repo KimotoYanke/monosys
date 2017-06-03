@@ -1,6 +1,7 @@
 import * as types from './mutations-type'
 
 export default {
-	[types.API] (state, { query }) {
+	[types.FETCH] (state, { data }) {
+		state.tableData = data
 	}
 }
