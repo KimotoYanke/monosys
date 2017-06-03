@@ -58,4 +58,4 @@ app.use(function(err, req, res) {
 	res.render('error')
 })
 
-export default app
+module.exports = app
