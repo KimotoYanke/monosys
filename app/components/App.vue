@@ -24,8 +24,8 @@ export default {
 	mounted () {
 		this.$store.dispatch('fetch', {})
 	},
-	components:{
-		'thing-table':ThingTable
+	components: {
+		'thing-table': ThingTable
 	}
 }
 </script>

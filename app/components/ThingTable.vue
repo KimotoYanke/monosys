@@ -16,19 +16,17 @@ div
 				b-table-column(label='タグ') {{ joinTags(props.row.tags) }}
 </template>
 <script>
-import { mapState } from 'vuex'
-
 export default {
-	props:['data'],
+	props: ['data'],
 	data () {
 		return {
 		}
 	},
-	methods:{
-		joinTags(array){
-			if(!array){
+	methods: {
+		joinTags (array) {
+			if (!array) {
 				return ''
-			} else if(array.length){
+			} else if (array.length) {
 				return array.join(', ')
 			}
 		}
