@@ -31,6 +31,12 @@ module.exports = {
 				}
 			},
 			{
+				test: /\.json$/,
+				use: {
+					loader: 'json-loader'
+				}
+			},
+			{
 				test: /\.css$/,
 				use: [{
 					loader: 'style-loader'
@@ -44,7 +50,8 @@ module.exports = {
 	resolve: {
 		alias: {
 			vue: 'vue/dist/vue.js'
-		}
+		},
+		extensions: ['.js', '.vue', 'json']
 	},
 	devtool: 'inline-source-map'
 }

@@ -1,7 +1,8 @@
-import * as types from './mutations-type'
+import types from './mutations-type.json'
 
 export default {
-	[types.FETCH] (state, { data }) {
-		state.tableData = data
+	[types.fetch] (state, { things }) {
+		state.things = things
+		console.log(things)
 	}
 }
