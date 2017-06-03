@@ -8,33 +8,31 @@ module.exports = {
 		filename: 'bundle.js'
 	},
 	module: {
-		loaders: [
-			{
-				test: /\.(js|vue)$/,
-				loader: 'eslint-loader',
-				enforce: 'pre',
-				include: [resolve('app'), resolve('test')],
-				options: {
-					formatter: require('eslint-friendly-formatter')
-				}
-			},
+		rules: [
 			{
 				test: /\.js$/,
-				loader: 'babel-loader',
 				exclude: /node_modules/, 
-				query:{
-					presets: ['es2015']
-				}
+				use: {
+					loader:'babel-loader',
+					options:{
+						presets: ['es2015']
+					}
+				},
 			},
 			{
 				test: /\.vue$/,
-				loader: 'vue-loader'
+				use: {
+					loader:'vue-loader',
+				},
 			},
 			{
 				test: /\.pug$/,
-				loader: 'pug-loader'
+				use: {
+					loader:'pug-loader',
+				},
 			},
-		]
+		],
+
 	},
 	resolve:{
 		alias: {

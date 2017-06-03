@@ -4,10 +4,10 @@ import * as getters from './getters'
 import * as actions from './actions'
 import mutations from './mutations'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 const state = {
-	things:[]
+	things: []
 }
 
 export default new Vuex.Store({
