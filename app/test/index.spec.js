@@ -1,7 +1,16 @@
 import App from '../components/App.vue'
 import ThingTable from '../components/ThingTable.vue'
+import Vue from 'vue'
+
+function getInstance(Component, propsData) {
+	const Ctor = Vue.extend(Component)
+	const vm = new Ctor({ propsData }).$mount()
+	return vm
+}
+
 describe('test for components', () => {
 	it('App', () => {
+		const instance=getInstance(App);
 		it('data', () => {
 			expect(App.data).to.be.a('Function')
 		})
@@ -10,6 +19,11 @@ describe('test for components', () => {
 		})
 		it('computed', () => {
 			expect(App.computed).to.have.keys('things')
+		})
+		it('logo', () => {
+			expect(
+				instance.$el.querySelector('nav.nav > .nav-left > a.nav-item')
+				.textContent).to.equals('Monosys')
 		})
 	})
 	it('ThingTable', () => {
