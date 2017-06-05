@@ -6,8 +6,8 @@
     "start": "babel-node ./bin/www",
     "webpack:watch": "webpack -w",
     "test": "karma start --single-run --browsers PhantomJS",
-    "eslint": "eslint --ext .js --ext .vue --ext .json app/ app.js views/ routes/ ./ --quiet",
-    "eslint:fix": "eslint --ext .js --ext .vue --ext .json app/ app.js views/ routes/ ./ --quiet --fix"
+    "eslint": "eslint --ext .js --ext .vue --ext .json app/ views/ routes/ ./ --quiet",
+    "eslint:fix": "eslint --ext .js --ext .vue --ext .json app/ views/ routes/ ./ --quiet --fix"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
