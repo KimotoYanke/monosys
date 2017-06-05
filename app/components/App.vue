@@ -1,8 +1,8 @@
 <template lang="pug">
 div
-	nav.nav
+	nav.nav.has-shadow
 		.nav-left
-			a.nav-item(href='/') Monosys
+			a.nav-item(href='/', style='font-family: "Rubik";') Monosys
 	thing-table(
 		:data='things'
 		)
