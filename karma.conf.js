@@ -50,6 +50,7 @@ module.exports = function (config) {
 					},
 					{
 						test: /\.js$/,
+						exclude: /node_modules/,
 						loaders: ['istanbul-instrumenter-loader', 'babel-loader']
 					}
 				]
