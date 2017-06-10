@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'path'
 import logger from 'morgan'
 import mongoose from 'mongoose'
+import favicon from 'serve-favicon'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import sassMiddleware from 'node-sass-middleware'
@@ -34,6 +35,7 @@ app.use(sassMiddleware({
 }))
 app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use(express.static(path.join(__dirname, '..', 'dist')))
+app.use(favicon(path.join(__dirname, '..', 'public','images','favicon.ico')))
 
 restify.serve(router, thing)
 router.use(index)
