@@ -1,3 +1,4 @@
+/*eslint no-console:0*/
 import express from 'express'
 import path from 'path'
 import logger from 'morgan'
@@ -57,4 +58,5 @@ app.use(function (err, req, res) {
 	res.render('error')
 })
 
+console.log('OK')
 module.exports = app

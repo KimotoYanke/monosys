@@ -6,7 +6,8 @@ export default Mongoose.model('thing', new Mongoose.Schema({
 	'isbn': { type: String },
 	'budget_frame': { type: String, enum: ['admin', '*'], required: true },
 	'where': { type: String, required: true },
-	'borrowing': { type: Mongoose.Schema.Types.ObjectId },
+	'date': { type: Date, required: true, default: Date.now },
+	'loan': { type: Mongoose.Schema.Types.ObjectId },
 	'tags': { type: [String] },
 	'comment': { type: String }
 }))

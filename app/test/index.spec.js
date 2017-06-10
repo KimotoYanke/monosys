@@ -2,7 +2,7 @@ import thing from '../pages/thing.vue'
 import ThingTable from '../components/ThingTable.vue'
 import Vue from 'vue'
 
-function getInstance(Component, propsData) {
+function getInstance (Component, propsData) {
 	const Ctor = Vue.extend(Component)
 	const vm = new Ctor({ propsData }).$mount()
 	return vm
@@ -10,7 +10,7 @@ function getInstance(Component, propsData) {
 
 describe('test for components', () => {
 	it('App', () => {
-		const instance=getInstance(thing);
+		const instance = getInstance(thing)
 		it('data', () => {
 			expect(thing.data).to.be.a('Function')
 		})

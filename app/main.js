@@ -11,9 +11,8 @@ Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(Buefy)
 
-
 const routes = [
-	{ path: '/thing', component: ThingPage },
+	{ path: '/thing', component: ThingPage }
 ]
 
 const router = new VueRouter({
@@ -25,5 +24,5 @@ sync(store, router)
 new Vue({
 	router,
 	store,
-	render:h=>h(ThingPage)
+	render: h => h(ThingPage)
 }).$mount('#app')
