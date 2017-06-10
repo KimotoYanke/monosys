@@ -1,4 +1,4 @@
-import App from '../components/App.vue'
+import thing from '../pages/thing.vue'
 import ThingTable from '../components/ThingTable.vue'
 import Vue from 'vue'
 
@@ -10,15 +10,15 @@ function getInstance(Component, propsData) {
 
 describe('test for components', () => {
 	it('App', () => {
-		const instance=getInstance(App);
+		const instance=getInstance(thing);
 		it('data', () => {
-			expect(App.data).to.be.a('Function')
+			expect(thing.data).to.be.a('Function')
 		})
 		it('components', () => {
-			expect(App.components).to.have.keys('thing-table')
+			expect(thing.components).to.have.keys('thing-table')
 		})
 		it('computed', () => {
-			expect(App.computed).to.have.keys('things')
+			expect(thing.computed).to.have.keys('things')
 		})
 		it('logo', () => {
 			expect(

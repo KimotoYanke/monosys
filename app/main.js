@@ -1,17 +1,25 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueRouter from 'vue-router'
 import store from './store'
-import App from './components/App.vue'
+import ThingPage from './pages/thing.vue'
 import Buefy from 'buefy'
 import 'buefy/lib/buefy.css'
 
 Vue.use(Vuex)
+Vue.use(VueRouter)
 Vue.use(Buefy)
 
-new Vue({
-	template: '<App/>',
-	name: 'app',
-	el: '#app',
-	store,
-	render: (h) => h(App)
+const routes = [
+	{ path: '/thing', component: ThingPage },
+]
+
+const router = new VueRouter({
+	routes // routes: routes の短縮表記
 })
+
+new Vue({
+	router,
+	store,
+	render:h=>h(ThingPage)
+}).$mount('#app')
