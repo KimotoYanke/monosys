@@ -1,16 +1,23 @@
 import thing from '../pages/thing.vue'
 import ThingTable from '../components/ThingTable.vue'
 import Vue from 'vue'
+import Vuex from 'vuex'
+import Buefy from 'buefy'
+import VueRouter from 'vue-router'
 
 function getInstance (Component, propsData) {
 	const Ctor = Vue.extend(Component)
 	const vm = new Ctor({ propsData }).$mount()
 	return vm
 }
+Vue.use(Vuex)
+Vue.use(VueRouter)
+Vue.use(Buefy)
 
 describe('test for components', () => {
-	it('App', () => {
+	it('thing', () => {
 		const instance = getInstance(thing)
+		console.log(instance)
 		it('data', () => {
 			expect(thing.data).to.be.a('Function')
 		})
@@ -37,5 +44,8 @@ describe('test for components', () => {
 				expect(ThingTable.methods.joinTags(['1', '2'])).to.equals('1, 2')
 			})
 		})
+	})
+	it('Test', () => {
+		expect('a').equals('a')
 	})
 })

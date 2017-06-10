@@ -1,4 +1,4 @@
-// var webpack = require('webpack')
+var webpack = require('webpack')
 
 module.exports = function (config) {
 	config.set({
@@ -6,9 +6,19 @@ module.exports = function (config) {
 		basePath: '',
 
 		frameworks: ['mocha', 'chai'],
+		plugins: [
+			'karma-phantomjs-launcher',
+			'karma-mocha',
+			'karma-chai',
+			'karma-coverage',
+			'karma-coveralls',
+			'karma-mocha-reporter',
+			'karma-sourcemap-loader',
+			'karma-webpack'
+		],
 
 		files: [
-			'app/test/*.spec.js'
+			'app/test/index.spec.js'
 		],
 
 		exclude: [
@@ -40,6 +50,10 @@ module.exports = function (config) {
 
 		singleRun: false,
 		concurrency: Infinity,
+		mime: {
+			'text/x-typescript': ['ts','tsx'],
+			'text/javascript': ['js'],
+		},
 
 		webpack: {
 			module: {

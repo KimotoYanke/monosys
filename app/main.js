@@ -10,13 +10,14 @@ import 'buefy/lib/buefy.css'
 Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(Buefy)
+Vue.config.silent = true
 
 const routes = [
 	{ path: '/thing', component: ThingPage }
 ]
 
 const router = new VueRouter({
-	routes // routes: routes の短縮表記
+	routes
 })
 
 sync(store, router)
