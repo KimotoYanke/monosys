@@ -11,7 +11,6 @@ Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(Buefy)
 
-sync(store, router)
 
 const routes = [
 	{ path: '/thing', component: ThingPage },
@@ -20,6 +19,8 @@ const routes = [
 const router = new VueRouter({
 	routes // routes: routes の短縮表記
 })
+
+sync(store, router)
 
 new Vue({
 	router,
