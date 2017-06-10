@@ -22,7 +22,7 @@ import { mapState } from 'vuex'
 export default {
 	data () {
 		return {
-			searchValue: '{}'
+			searchValue: ''
 		}
 	},
 	computed: {
