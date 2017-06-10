@@ -16,7 +16,6 @@ div
 </template>
 <script>
 import ThingTable from '../components/ThingTable.vue'
-import store from '../store'
 import { mapState } from 'vuex'
 
 export default {
@@ -70,8 +69,7 @@ export default {
 	},
 	components: {
 		'thing-table': ThingTable
-	},
-	store
+	}
 }
 </script>
 <style lang="sass">
