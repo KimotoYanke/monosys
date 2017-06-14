@@ -15,7 +15,10 @@ import thing from './models/thing'
 const app = express()
 const router = express.Router()
 
-mongoose.connect('mongodb://localhost:27017/database')
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/database').then(()=>{
+	console.log(`I'm Running.`)
+})
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
@@ -58,5 +61,4 @@ app.use(function (err, req, res) {
 	res.render('error')
 })
 
-console.log(`I'm Running.`)
 module.exports = app
