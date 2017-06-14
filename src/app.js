@@ -58,5 +58,5 @@ app.use(function (err, req, res) {
 	res.render('error')
 })
 
-console.log('OK')
+console.log(`I'm Running.`)
 module.exports = app
