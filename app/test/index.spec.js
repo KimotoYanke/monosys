@@ -1,6 +1,6 @@
 import thing from '../pages/thing.vue'
 import ThingTable from '../components/ThingTable.vue'
-import ThingTable from '../components/ThingTable.vue'
+import ThingForm from '../components/ThingForm.vue'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Buefy from 'buefy'
