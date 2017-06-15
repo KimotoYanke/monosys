@@ -1,5 +1,6 @@
 import thing from '../pages/thing.vue'
 import ThingTable from '../components/ThingTable.vue'
+import ThingTable from '../components/ThingTable.vue'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Buefy from 'buefy'
@@ -17,7 +18,6 @@ Vue.use(Buefy)
 describe('test for components', () => {
 	it('thing', () => {
 		const instance = getInstance(thing)
-		console.log(instance)
 		it('data', () => {
 			expect(thing.data).to.be.a('Function')
 		})
@@ -45,7 +45,20 @@ describe('test for components', () => {
 			})
 		})
 	})
+	it('ThingForm', () => {
+		it('data', () => {
+			expect(ThingForm.data).to.be.a('Function')
+		})
+		it('methods', () => {
+			it('checkIsbn', () => {
+				expect(ThingForm.methods.checkIsbn('4774120189')).to.be.true
+				expect(ThingForm.methods.checkIsbn('4774120188')).to.be.false
+				expect(ThingForm.methods.checkIsbn('9784774166346')).to.be.true
+				expect(ThingForm.methods.checkIsbn('9784774166345')).to.be.false
+			})
+		})
+	})
 	it('Test', () => {
-		expect('a').equals('a')
+		expect('vim').equals('vim')
 	})
 })

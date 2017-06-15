@@ -15,9 +15,10 @@ import thing from './models/thing'
 const app = express()
 const router = express.Router()
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/database').then(()=>{
-	console.log(`I'm Running.`)
+// the promise of Mongoose is the native Promise
+mongoose.Promise = global.Promise
+mongoose.connect('mongodb://localhost:27017/database').then(() => {
+	console.log('I\'m Running.')
 })
 
 // view engine setup

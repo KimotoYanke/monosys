@@ -4,24 +4,39 @@ div
 		.nav-left
 			a.nav-item(href='/', style='font-family: "Rubik";') Monosys
 		.nav-right
-			b-field.nav-item
-				b-input(
-					type='search'
-					icon='search'
-					v-model='searchValue')
+			.nav-item
+				b-field
+					b-input(
+						type='search'
+						icon='search'
+						v-model='searchValue')
+					p.control
+						button.button.is-primary(@click='search')
+							b-icon(icon='search')
+							span 検索
+			.nav-item
 				p.control
-					button.button.is-primary(@click='search') 検索
+					a.button.is-primary(@click='add')
+						b-icon(icon='add')
+						span 登録
 	thing-table(
 		:data='things')
+	b-modal(
+		:active.sync='isActiveAddingModal'
+		:component='ThingForm'
+		)
 </template>
 <script>
 import ThingTable from '../components/ThingTable.vue'
+import ThingForm from '../components/ThingForm.vue'
 import { mapState } from 'vuex'
 
 export default {
 	data () {
 		return {
-			searchValue: ''
+			ThingForm,
+			searchValue: '',
+			isActiveAddingModal: false
 		}
 	},
 	computed: {
@@ -65,6 +80,9 @@ export default {
 			if (query) {
 				this.$store.dispatch('fetch', { query })
 			}
+		},
+		add () {
+			this.isActiveAddingModal = true
 		}
 	},
 	components: {
