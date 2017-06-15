@@ -23,9 +23,16 @@
 				:type='thing.budget_frame ? "is-success" : "is-danger"')
 					b-select(v-model='thing.budget_frame')
 						option(:value='index', v-for='(name, index) in budgetFrames') {{name}}
+			b-field(label='ISBN'
+				v-if='type == types.ISBN'
+				:type='isSafeIsbn ? "is-success" : "is-danger"')
+					b-input(v-model='thing.isbn', type='number')
+			b-field(label='タグ')
+				b-input-tag(:tags='thing.tags')
 		footer.modal-card-foot
 </template>
 <script>
+import BInputTag from './BInputTag'
 import types from '../things-type.json'
 import budgetFrames from '../budget-frames-type.json'
 export default {
@@ -37,7 +44,8 @@ export default {
 				name: '',
 				isbn: '',
 				rfid: '',
-				'budget_frame': ''
+				'budget_frame': '',
+				tags: []
 			},
 			type: types.ISBN
 		}
@@ -83,6 +91,9 @@ export default {
 		}
 	},
 	mounted () {
+	},
+	components:{
+		'b-input-tag':BInputTag
 	}
 }
 </script>
