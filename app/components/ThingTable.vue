@@ -4,23 +4,27 @@ div
 		:data='data'
 		:bordered='false'
 		:striped='true'
+		:narrowed='true'
+		default-sort='name'
+		:selected.sync='selected'
 		)
 			template(scope='props')
-				b-table-column(label='ID') {{ props.row._id || '' }}
-				b-table-column(label='名前') {{ props.row.name }}
-				b-table-column(label='RFID') {{ props.row.rfid }}
-				b-table-column(label='ISBN') {{ props.row.isbn }}
-				b-table-column(label='予算枠') {{ props.row.budget_frame }}
-				b-table-column(label='貸出状況') 
+				b-table-column(label='ID', field='_id') {{ props.row._id || '' }}
+				b-table-column(label='名前', field='name', sortable) {{ props.row.name }}
+				b-table-column(label='RFID', field='rfid') {{ props.row.rfid }}
+				b-table-column(label='ISBN', field='isbn') {{ props.row.isbn }}
+				b-table-column(label='予算枠', field='budget_frame', sortable) {{ props.row.budget_frame }}
+				b-table-column(label='貸出状況', field='loan', sortable) 
 					b-icon(icon='check', v-if='!!props.row.loan')
-				b-table-column(label='タグ') {{ joinTags(props.row.tags) }}
-				b-table-column(label='登録日') {{ props.row.date }}
+				b-table-column(label='タグ', field='tags') {{ joinTags(props.row.tags) }}
+				b-table-column(label='登録日', field='date', sortable) {{ props.row.date }}
 </template>
 <script>
 export default {
 	props: ['data'],
 	data () {
 		return {
+			selected:{}
 		}
 	},
 	methods: {
