@@ -40,6 +40,16 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use(express.static(path.join(__dirname, '..', 'dist')))
 
+restify.defaults({
+	onError (err, req, res, next) {
+		const statusCode = req.erm.statusCode 
+		res.status(statusCode).json({
+			message: err.message
+		})
+		console.log(req)
+	}
+
+})
 restify.serve(router, thing)
 router.use(index)
 app.use(router)

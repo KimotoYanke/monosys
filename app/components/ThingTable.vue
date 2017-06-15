@@ -24,7 +24,7 @@ export default {
 	props: ['data'],
 	data () {
 		return {
-			selected:{}
+			selected: {}
 		}
 	},
 	methods: {

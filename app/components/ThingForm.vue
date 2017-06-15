@@ -1,53 +1,45 @@
 <template lang="pug">
 .modal-card
-	form
+	form(@submit='post')
 		header.modal-card-head
 			p.modal-card-title 登録
 		section.modal-card-body
 			b-field(label='名前'
 				:type='!!thing.name ? "is-success" : "is-danger"')
 					b-input(v-model='thing.name')
-			b-field(label='種類')
-				b-radio-group(v-model='type')
-					b-radio-button(:value='types.RFID') 物
-					b-radio-button(:value='types.ISBN') 本
-			b-field(label='RFID'
-				v-if='type == types.RFID'
-				:type='!!thing.rfid ? "is-success" : "is-danger"')
+			b-field(label='RFID')
 					b-input(v-model='thing.rfid')
 			b-field(label='ISBN'
-				v-if='type == types.ISBN'
 				:type='isSafeIsbn ? "is-success" : "is-danger"')
 					b-input(v-model='thing.isbn', type='number')
-			b-field(label='予算枠'
-				:type='thing.budget_frame ? "is-success" : "is-danger"')
+			b-field(label='場所'
+				:type='!!thing.where ? "is-success" : "is-danger"')
+				b-input(v-model='thing.where')
+			b-field(label='予算枠')
 					b-select(v-model='thing.budget_frame')
 						option(:value='index', v-for='(name, index) in budgetFrames') {{name}}
-			b-field(label='ISBN'
-				v-if='type == types.ISBN'
-				:type='isSafeIsbn ? "is-success" : "is-danger"')
-					b-input(v-model='thing.isbn', type='number')
 			b-field(label='タグ')
 				b-input-tag(:tags='thing.tags')
 		footer.modal-card-foot
+			button.button 送信
 </template>
 <script>
 import BInputTag from './BInputTag'
-import types from '../things-type.json'
+import axios from 'axios'
 import budgetFrames from '../budget-frames-type.json'
+axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
 	data () {
 		return {
-			types,
 			budgetFrames,
 			thing: {
 				name: '',
 				isbn: '',
 				rfid: '',
+				where: '',
 				'budget_frame': '',
 				tags: []
 			},
-			type: types.ISBN
 		}
 	},
 	methods: {
@@ -83,6 +75,28 @@ export default {
 			} else {
 				return false
 			}
+		},
+		post () {
+			if ((() => {
+				if(this.thing.isbn){
+					if (!this.isSafeIsbn) {
+						return false
+					}
+				}
+				if (!this.thing.name) {
+					return false
+				}
+				return true
+			})()) {
+				const query = Object.assign({}, this.thing)
+				axios.post('/api/v1/thing', JSON.stringify(query))
+					.then(responce => {
+						console.log(responce)
+					})
+					.catch( e =>{
+						console.log(e)
+					})
+			}
 		}
 	},
 	computed: {
@@ -92,8 +106,8 @@ export default {
 	},
 	mounted () {
 	},
-	components:{
-		'b-input-tag':BInputTag
+	components: {
+		'b-input-tag': BInputTag
 	}
 }
 </script>

@@ -8,20 +8,20 @@
 export default {
 	data () {
 		return {
-			tags:[],
-			text:'',
-			focused:false
+			tags: [],
+			text: '',
+			focused: false
 		}
 	},
 	methods: {
-		blur(){
-			this.focused=false
-			const tags=this.text.split(/\s+/g)
-			this.tags=tags
+		blur () {
+			this.focused = false
+			const tags = this.text.split(/\s+/g)
+			this.tags = tags
 		},
-		focus(){
-			this.focused=true
-			this.text=this.tags.join(' ')
+		focus () {
+			this.focused = true
+			this.text = this.tags.join(' ')
 		}
 	},
 	computed: {
