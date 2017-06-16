@@ -14,7 +14,8 @@
 					b-input(v-model='thing.isbn', type='number')
 			b-field(label='場所'
 				:type='!!thing.where ? "is-success" : "is-danger"')
-				b-input(v-model='thing.where')
+					b-select(v-model='thing.where')
+						option(:value='procon-a') プロコン室A
 			b-field(label='予算枠')
 					b-select(v-model='thing.budget_frame')
 						option(:value='index', v-for='(name, index) in budgetFrames') {{name}}
