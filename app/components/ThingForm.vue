@@ -1,33 +1,30 @@
 <template lang="pug">
 
-.modal(:class='{ "is-active" : active }')
-	.modal-background
-	form.modal-card(@submit='post')
-		header.modal-card-head
-			p.modal-card-title 登録
-			a.delete(@click='close')
-		section.modal-card-body
-			b-field(label='名前'
-				:type='!!thing.name ? "is-success" : "is-danger"')
-					b-input(v-model='thing.name')
-			b-field(label='RFID')
-					b-input(v-model='thing.rfid')
-			b-field(label='ISBN'
-				:type='isSafeIsbn ? "is-success" : "is-danger"')
-					b-input(v-model='thing.isbn', type='number')
-			b-field(label='場所'
-				:type='!!thing.where ? "is-success" : "is-danger"')
-					b-select(v-model='thing.where')
-						option(:value='index', v-for='(name, index) in PLACES') {{name}}
-			b-field(label='予算枠')
-					b-select(v-model='thing.budget_frame')
-						option(:value='index', v-for='(name, index) in BUDGET_FRAMES') {{name}}
-			b-field(label='タグ')
-				b-input-tag(:tags='thing.tags')
-			b-field(label='備考')
-				b-input(:tags='thing.comment')
-		footer.modal-card-foot
-			button.button 送信
+form.modal-card(@submit='post')
+	header.modal-card-head
+		p.modal-card-title 登録
+	section.modal-card-body
+		b-field(label='名前'
+			:type='!!thing.name ? "is-success" : "is-danger"')
+				b-input(v-model='thing.name')
+		b-field(label='RFID')
+				b-input(v-model='thing.rfid')
+		b-field(label='ISBN'
+			:type='isSafeIsbn ? "is-success" : "is-danger"')
+				b-input(v-model='thing.isbn', type='number')
+		b-field(label='場所'
+			:type='!!thing.where ? "is-success" : "is-danger"')
+				b-select(v-model='thing.where')
+					option(:value='index', v-for='(name, index) in PLACES') {{name}}
+		b-field(label='予算枠')
+				b-select(v-model='thing.budget_frame')
+					option(:value='index', v-for='(name, index) in BUDGET_FRAMES') {{name}}
+		b-field(label='タグ')
+			b-input-tag(:tags.sync='thing.tags')
+		b-field(label='備考')
+			b-input(:tags='thing.comment')
+	footer.modal-card-foot
+		button.button 送信
 </template>
 <script>
 import BInputTag from './BInputTag'
