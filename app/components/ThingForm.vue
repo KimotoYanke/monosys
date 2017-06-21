@@ -29,8 +29,8 @@
 <script>
 import BInputTag from './BInputTag'
 import axios from 'axios'
-import BUDGET_FRAMES from '../budget-frames-type.json'
-import PLACES from '../where-type.json'
+import BUDGET_FRAMES from '../budget-frames-type'
+import PLACES from '../where-type'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
 	data () {
