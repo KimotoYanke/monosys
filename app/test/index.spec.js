@@ -38,10 +38,9 @@ describe('test for components', () => {
 			expect(ThingTable.data).to.be.a('Function')
 		})
 		it('methods', () => {
-			it('joinTags', () => {
-				expect(ThingTable.methods.joinTags(undefined)).to.equals('')
-				expect(ThingTable.methods.joinTags([])).to.equals('')
-				expect(ThingTable.methods.joinTags(['1', '2'])).to.equals('1, 2')
+			it('dateFormat', () => {
+				expect(ThingTable.methods.dateFormat(undefined)).to.equals('')
+				expect(ThingTable.methods.dateFormat('')).to.equals('')
 			})
 		})
 	})

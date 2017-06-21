@@ -16,25 +16,35 @@ div
 				b-table-column(label='予算枠', field='budget_frame', sortable) {{ props.row.budget_frame }}
 				b-table-column(label='貸出状況', field='loan', sortable) 
 					b-icon(icon='check', v-if='!!props.row.loan')
-				b-table-column(label='タグ', field='tags') {{ joinTags(props.row.tags) }}
-				b-table-column(label='登録日', field='date', sortable) {{ props.row.date }}
+				b-table-column(label='タグ', field='tags')
+					.tag-list
+						span.tag(v-for='tag in props.row.tags') {{tag}}
+				b-table-column(label='登録日', field='date', sortable, custom-sort='dateSort') {{ dateFormat(props.row.date) }}
 </template>
 <script>
 export default {
 	props: ['data'],
 	data () {
 		return {
-			selected: {}
+			selected: {},
+			dateSort:(a,b)=>{
+				if(!a){
+					return -1
+				}
+				if(!b){
+					return 1
+				}
+				return new Date(a).getTime()-new Date(b).getTime()
+			}
 		}
 	},
 	methods: {
-		joinTags (array) {
-			if (!array) {
+		dateFormat(date){
+			if(!date){
 				return ''
-			} else if (array.length) {
-				return array.join(', ')
 			}
-		}
+			return new Date(date).toLocaleString()
+		},
 	},
 	mounted () {
 	}
