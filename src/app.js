@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, '..', 'dist')))
 
 restify.defaults({
 	onError (err, req, res, next) {
-		const statusCode = req.erm.statusCode 
+		const statusCode = req.erm.statusCode
 		res.status(statusCode).json({
 			message: err.message
 		})

@@ -15,32 +15,37 @@
 			b-field(label='場所'
 				:type='!!thing.where ? "is-success" : "is-danger"')
 					b-select(v-model='thing.where')
-						option(:value='procon-a') プロコン室A
+						option(:value='procon-a', v-for='(name, index) in PLACES') {{name}}
 			b-field(label='予算枠')
 					b-select(v-model='thing.budget_frame')
-						option(:value='index', v-for='(name, index) in budgetFrames') {{name}}
+						option(:value='index', v-for='(name, index) in BUDGET_FRAMES') {{name}}
 			b-field(label='タグ')
 				b-input-tag(:tags='thing.tags')
+			b-field(label='備考')
+				b-input(:tags='thing.comment')
 		footer.modal-card-foot
 			button.button 送信
 </template>
 <script>
 import BInputTag from './BInputTag'
 import axios from 'axios'
-import budgetFrames from '../budget-frames-type.json'
+import BUDGET_FRAME from '../budget-frames-type.json'
+import PLACES from '../where-type.json'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
 	data () {
 		return {
-			budgetFrames,
+			BUDGET_FRAME,
+			PLACES,
 			thing: {
 				name: '',
 				isbn: '',
 				rfid: '',
-				where: '',
+				where: 'procon-a',
 				'budget_frame': '',
-				tags: []
-			},
+				tags: [],
+				comment: ''
+			}
 		}
 	},
 	methods: {
@@ -79,7 +84,7 @@ export default {
 		},
 		post () {
 			if ((() => {
-				if(this.thing.isbn){
+				if (this.thing.isbn) {
 					if (!this.isSafeIsbn) {
 						return false
 					}
@@ -94,7 +99,7 @@ export default {
 					.then(responce => {
 						console.log(responce)
 					})
-					.catch( e =>{
+					.catch(e => {
 						console.log(e)
 					})
 			}
