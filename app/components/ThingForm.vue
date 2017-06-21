@@ -1,8 +1,11 @@
 <template lang="pug">
-.modal-card
-	form(@submit='post')
+
+.modal(:class='{ "is-active" : active }')
+	.modal-background
+	form.modal-card(@submit='post')
 		header.modal-card-head
 			p.modal-card-title 登録
+			a.delete(@click='close')
 		section.modal-card-body
 			b-field(label='名前'
 				:type='!!thing.name ? "is-success" : "is-danger"')
@@ -33,6 +36,7 @@ import BUDGET_FRAMES from '../budget-frames-type'
 import PLACES from '../where-type'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
+	props:['active'],
 	data () {
 		return {
 			BUDGET_FRAMES,
@@ -104,6 +108,10 @@ export default {
 						console.log(e)
 					})
 			}
+		},
+		close () {
+			this.active=false
+			this.$emit('update:active', false)
 		}
 	},
 	computed: {
