@@ -73,7 +73,8 @@ module.exports = function (config) {
 			resolve: {
 				alias: {
 					vue: 'vue/dist/vue.js'
-				}
+				},
+				extensions: ['.js', '.vue', 'json']
 			},
 			devtool: 'inline-source-map'
 		}
