@@ -6,3 +6,10 @@
 [![Kosen](https://img.shields.io/badge/school-国立東京工業高等専門学校-blue.svg?style=flat-square)]()
 
 <img src="https://raw.githubusercontent.com/kimotoshin/monosys/master/public/images/icons/favicon.png" width="300px" align="center">
+
+```sh
+$ yarn
+$ npm run build
+$ npm start
+```
+
