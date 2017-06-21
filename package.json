@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "babel-node ./bin/www",
-    "webpack:watch": "webpack -w",
+    "build": "webpack",
+    "build:watch": "webpack -w",
     "test": "karma start --single-run --browsers PhantomJS",
     "eslint": "eslint --ext .js --ext .vue --ext .json app/ src/ --quiet",
     "eslint:fix": "eslint --ext .js --ext .vue --ext .json app/ src/ --quiet --fix"
