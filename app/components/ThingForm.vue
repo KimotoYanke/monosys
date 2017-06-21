@@ -15,7 +15,7 @@
 			b-field(label='場所'
 				:type='!!thing.where ? "is-success" : "is-danger"')
 					b-select(v-model='thing.where')
-						option(:value='procon-a', v-for='(name, index) in PLACES') {{name}}
+						option(:value='index', v-for='(name, index) in PLACES') {{name}}
 			b-field(label='予算枠')
 					b-select(v-model='thing.budget_frame')
 						option(:value='index', v-for='(name, index) in BUDGET_FRAMES') {{name}}
@@ -29,22 +29,23 @@
 <script>
 import BInputTag from './BInputTag'
 import axios from 'axios'
-import BUDGET_FRAME from '../budget-frames-type.json'
+import BUDGET_FRAMES from '../budget-frames-type.json'
 import PLACES from '../where-type.json'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
 	data () {
 		return {
-			BUDGET_FRAME,
+			BUDGET_FRAMES,
 			PLACES,
 			thing: {
 				name: '',
 				isbn: '',
 				rfid: '',
 				where: 'procon-a',
-				'budget_frame': '',
+				'budget_frame': 'unknown',
 				tags: [],
-				comment: ''
+				comment: '',
+				whose:''
 			}
 		}
 	},
@@ -107,7 +108,7 @@ export default {
 	},
 	computed: {
 		isSafeIsbn () {
-			return this.checkIsbn(this.thing.isbn)
+			return this.checkIsbn(this.thing.isbn)||!!this.thing.rfid
 		}
 	},
 	mounted () {
