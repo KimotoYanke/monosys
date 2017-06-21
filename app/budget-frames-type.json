@@ -1,5 +1,7 @@
 {
 	"unknown":"不明",
-	"spc":"SPC",
+	"club":"部費",
+	"skull":"骸骨部費",
+	"supporters":"後援会費",
 	"individual":"個人"
 }
