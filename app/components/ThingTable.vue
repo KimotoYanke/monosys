@@ -27,24 +27,24 @@ export default {
 	data () {
 		return {
 			selected: {},
-			dateSort:(a,b)=>{
-				if(!a){
+			dateSort: (a, b) => {
+				if (!a) {
 					return -1
 				}
-				if(!b){
+				if (!b) {
 					return 1
 				}
-				return new Date(a).getTime()-new Date(b).getTime()
+				return new Date(a).getTime() - new Date(b).getTime()
 			}
 		}
 	},
 	methods: {
-		dateFormat(date){
-			if(!date){
+		dateFormat (date) {
+			if (!date) {
 				return ''
 			}
 			return new Date(date).toLocaleString()
-		},
+		}
 	},
 	mounted () {
 	}

@@ -6,7 +6,7 @@
 </template>
 <script>
 export default {
-	props:['tags'],
+	props: ['tags'],
 	data () {
 		return {
 			text: '',
@@ -23,7 +23,7 @@ export default {
 		focus () {
 			this.focused = true
 			this.text = this.tags.join(' ')
-		},
+		}
 	},
 	computed: {
 	},

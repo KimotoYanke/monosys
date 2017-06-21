@@ -33,7 +33,7 @@ import BUDGET_FRAMES from '../budget-frames-type'
 import PLACES from '../where-type'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
-	props:['active'],
+	props: ['active'],
 	data () {
 		return {
 			BUDGET_FRAMES,
@@ -46,7 +46,7 @@ export default {
 				'budget_frame': 'unknown',
 				tags: [],
 				comment: '',
-				whose:''
+				whose: ''
 			}
 		}
 	},
@@ -107,13 +107,13 @@ export default {
 			}
 		},
 		close () {
-			this.active=false
+			this.active = false
 			this.$emit('update:active', false)
 		}
 	},
 	computed: {
 		isSafeIsbn () {
-			return this.checkIsbn(this.thing.isbn)||!!this.thing.rfid
+			return this.checkIsbn(this.thing.isbn) || !!this.thing.rfid
 		}
 	},
 	mounted () {
