@@ -21,8 +21,9 @@ div
 						span 登録
 	thing-table(
 		:data='things')
-	thing-form(
+	b-modal(
 		:active.sync='isActiveAddingModal'
+		:component='ThingForm'
 		)
 </template>
 <script>
@@ -33,6 +34,7 @@ import { mapState } from 'vuex'
 export default {
 	data () {
 		return {
+			ThingForm,
 			searchValue: '',
 			isActiveAddingModal: false
 		}
