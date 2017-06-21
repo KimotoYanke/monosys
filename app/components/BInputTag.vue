@@ -6,9 +6,9 @@
 </template>
 <script>
 export default {
+	props:['tags'],
 	data () {
 		return {
-			tags: [],
 			text: '',
 			focused: false
 		}
@@ -18,11 +18,12 @@ export default {
 			this.focused = false
 			const tags = this.text.split(/\s+/g)
 			this.tags = tags
+			this.$emit('update:tags', tags)
 		},
 		focus () {
 			this.focused = true
 			this.text = this.tags.join(' ')
-		}
+		},
 	},
 	computed: {
 	},
