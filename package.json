@@ -5,10 +5,10 @@
   "scripts": {
     "start": "babel-node ./bin/www",
     "build": "webpack",
-    "build:watch": "webpack -w",
+    "build:watch": "npm run build -- --watch",
     "test": "karma start --single-run --browsers PhantomJS",
     "eslint": "eslint --ext .js --ext .vue --ext .json app/ src/ --quiet",
-    "eslint:fix": "eslint --ext .js --ext .vue --ext .json app/ src/ --quiet --fix"
+    "eslint:fix": "npm run eslint -- --fix"
   },
   "dependencies": {
     "body-parser": "~1.17.1",

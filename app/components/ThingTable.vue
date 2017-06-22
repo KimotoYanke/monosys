@@ -13,7 +13,9 @@ div
 				b-table-column(label='名前', field='name', sortable) {{ props.row.name }}
 				b-table-column(label='RFID', field='rfid') {{ props.row.rfid }}
 				b-table-column(label='ISBN', field='isbn') {{ props.row.isbn }}
-				b-table-column(label='予算枠', field='budget_frame', sortable) {{ props.row.budget_frame }}
+				b-table-column(label='予算枠', field='budget_frame', sortable) 
+					template(v-if='props.row.budget_frame=="individual"') {{ props.row.whose }}
+					template(v-else) {{ props.row.budget_frame }}
 				b-table-column(label='貸出状況', field='loan', sortable) 
 					b-icon(icon='check', v-if='!!props.row.loan')
 				b-table-column(label='タグ', field='tags')

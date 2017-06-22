@@ -9,16 +9,22 @@ form.modal-card(@submit='post')
 				b-input(v-model='thing.name')
 		b-field(label='RFID')
 				b-input(v-model='thing.rfid')
-		b-field(label='ISBN'
-			:type='isSafeIsbn ? "is-success" : "is-danger"')
-				b-input(v-model='thing.isbn', type='number')
-		b-field(label='場所'
-			:type='!!thing.where ? "is-success" : "is-danger"')
+		b-field(label='ISBN')
+			b-tooltip(:label='"ISBNチェックに" + (isSafeIsbn ? "成功" : "失敗")'
+				type='is-info'
+				position='is-right')
+					b-input(v-model='thing.isbn')
+		b-field(label='場所')
 				b-select(v-model='thing.where')
 					option(:value='index', v-for='(name, index) in PLACES') {{name}}
 		b-field(label='予算枠')
 				b-select(v-model='thing.budget_frame')
 					option(:value='index', v-for='(name, index) in BUDGET_FRAMES') {{name}}
+		b-field(label='所持者'
+			v-if='thing.budget_frame == "individual"'
+			:type='!!thing.whose ? "is-success" : "is-danger"'
+			)
+				b-input(v-model='thing.whose')
 		b-field(label='タグ')
 			b-input-tag(:tags.sync='thing.tags')
 		b-field(label='備考')
@@ -31,9 +37,16 @@ import BInputTag from './BInputTag'
 import axios from 'axios'
 import BUDGET_FRAMES from '../budget-frames-type'
 import PLACES from '../where-type'
+const POST_ERRS = {
+	'no-name': '名前がありません',
+	'no-ids': 'RFIDもISBNもありません',
+	'wrong-isbn': 'ISBNが間違っています',
+	'no-budget-frame': '予算枠が記入されていません',
+	'no-where': '場所が記入されていません'
+}
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 export default {
-	props: ['active'],
+	props: ['active', '_id'],
 	data () {
 		return {
 			BUDGET_FRAMES,
@@ -52,7 +65,7 @@ export default {
 	},
 	methods: {
 		checkIsbn (isbn) {
-			const digits = String(isbn).replace(/[^0-9]/g, '').split('')
+			const digits = this.removeHyphen(isbn).split('')
 			const checkDigit = digits[digits.length - 1] * 1
 
 			// ISBN 13
@@ -68,7 +81,7 @@ export default {
 					}
 					return s
 				})()
-				const r = 10 - sum % 10
+				const r = sum % 10 === 0 ? 0 : 10 - sum % 10
 				return r === checkDigit
 			} else if (digits.length === 10) {
 				const sum = (() => {
@@ -84,25 +97,63 @@ export default {
 				return false
 			}
 		},
+		removeHyphen (str) {
+			return String(str).replace(/[^0-9]/g, '')
+		},
 		post () {
-			if ((() => {
-				if (this.thing.isbn) {
-					if (!this.isSafeIsbn) {
-						return false
-					}
+			const query = Object.assign({}, this.thing)
+
+				// Edit
+			query.isbn = this.removeHyphen(query.isbn)
+			if (!query.tags.includes('book') && !!query.isbn) {
+				if (query.tags) {
+					query.tags.push('book')
+				} else {
+					query.tags[0] = 'book'
 				}
-				if (!this.thing.name) {
-					return false
+			}
+
+				// Check
+			const err = (() => {
+				if (!query.name) {
+					return 'no-name'
 				}
-				return true
-			})()) {
-				const query = Object.assign({}, this.thing)
+				if (!query.isbn && !query.rfid) {
+					return 'no-ids'
+				}
+				if (!this.checkIsbn(query.isbn) && !query.rfid) {
+					return 'wrong-isbn'
+				}
+				if (!query['budget_frame']) {
+					return 'no-budget-frame'
+				}
+				if (!query.where) {
+					return 'no-where'
+				}
+				return ''
+			})()
+			console.log(err)
+			if (err) {
+				this.$toast.open({
+					message: POST_ERRS[err],
+					position: 'is-bottom',
+					type: 'is-danger'
+				})
+			} else {
 				axios.post('/api/v1/thing', JSON.stringify(query))
 					.then(responce => {
-						console.log(responce)
+						this.$toast.open({
+							message: '送信しました',
+							position: 'is-bottom',
+							type: 'is-success'
+						})
 					})
 					.catch(e => {
-						console.log(e)
+						this.$toast.open({
+							message: '送信に失敗',
+							position: 'is-bottom',
+							type: 'is-danger'
+						})
 					})
 			}
 		},
