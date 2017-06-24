@@ -22,8 +22,11 @@ div
 					.tag-list
 						span.tag(v-for='tag in props.row.tags') {{tag}}
 				b-table-column(label='登録日', field='date', sortable, custom-sort='dateSort') {{ dateFormat(props.row.date) }}
+				b-table-column(label='編集') 
+					button.button.is-small(@click='editModal(props.row)') 編集
 </template>
 <script>
+import ThingForm from '../components/ThingForm.vue'
 export default {
 	props: ['data'],
 	data () {
@@ -46,6 +49,15 @@ export default {
 				return ''
 			}
 			return new Date(date).toLocaleString()
+		},
+		editModal (t) {
+			this.$modal.open({
+				component: ThingForm,
+				props: {
+					title: '編集',
+					thing: t
+				}
+			})
 		}
 	},
 	mounted () {

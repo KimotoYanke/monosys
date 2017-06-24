@@ -16,15 +16,11 @@ div
 							span 検索
 			.nav-item
 				p.control
-					a.button.is-primary(@click='add')
+					a.button.is-primary(@click='registerModal')
 						b-icon(icon='add')
 						span 登録
 	thing-table(
 		:data='things')
-	b-modal(
-		:active.sync='isActiveAddingModal'
-		:component='ThingForm'
-		)
 </template>
 <script>
 import ThingTable from '../components/ThingTable.vue'
@@ -35,8 +31,7 @@ export default {
 	data () {
 		return {
 			ThingForm,
-			searchValue: '',
-			isActiveAddingModal: false
+			searchValue: ''
 		}
 	},
 	computed: {
@@ -81,8 +76,13 @@ export default {
 				this.$store.dispatch('fetch', { query })
 			}
 		},
-		add () {
-			this.isActiveAddingModal = true
+		registerModal () {
+			this.$modal.open({
+				component: ThingForm,
+				props: {
+					title: '登録'
+				}
+			})
 		}
 	},
 	components: {

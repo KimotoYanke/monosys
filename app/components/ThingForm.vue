@@ -1,8 +1,8 @@
 <template lang="pug">
 
-form.modal-card(@submit='post')
+form.modal-card(@submit='send')
 	header.modal-card-head
-		p.modal-card-title 登録
+		p.modal-card-title {{title}}
 	section.modal-card-body
 		b-field(label='名前'
 			:type='!!thing.name ? "is-success" : "is-danger"')
@@ -45,13 +45,11 @@ const POST_ERRS = {
 	'no-where': '場所が記入されていません'
 }
 axios.defaults.headers.post['Content-Type'] = 'application/json'
+axios.defaults.headers.put['Content-Type'] = 'application/json'
 export default {
-	props: ['active', '_id'],
-	data () {
-		return {
-			BUDGET_FRAMES,
-			PLACES,
-			thing: {
+	props: {
+		'thing': {
+			default: {
 				name: '',
 				isbn: '',
 				rfid: '',
@@ -61,6 +59,12 @@ export default {
 				comment: '',
 				whose: ''
 			}
+		},
+		'title': String },
+	data () {
+		return {
+			BUDGET_FRAMES,
+			PLACES
 		}
 	},
 	methods: {
@@ -100,10 +104,10 @@ export default {
 		removeHyphen (str) {
 			return String(str).replace(/[^0-9]/g, '')
 		},
-		post () {
+		send () {
 			const query = Object.assign({}, this.thing)
 
-				// Edit
+			// Edit
 			query.isbn = this.removeHyphen(query.isbn)
 			if (!query.tags.includes('book') && !!query.isbn) {
 				if (query.tags) {
@@ -113,7 +117,7 @@ export default {
 				}
 			}
 
-				// Check
+			// Check
 			const err = (() => {
 				if (!query.name) {
 					return 'no-name'
@@ -132,7 +136,6 @@ export default {
 				}
 				return ''
 			})()
-			console.log(err)
 			if (err) {
 				this.$toast.open({
 					message: POST_ERRS[err],
@@ -140,15 +143,16 @@ export default {
 					type: 'is-danger'
 				})
 			} else {
-				axios.post('/api/v1/thing', JSON.stringify(query))
-					.then(responce => {
-						this.$toast.open({
-							message: '送信しました',
-							position: 'is-bottom',
-							type: 'is-success'
-						})
-					})
-					.catch(e => {
+				(this.thing._id
+					? () => axios.put('/api/v1/thing/' + this.thing._id, JSON.stringify(query))
+					: () => axios.post('/api/v1/thing', JSON.stringify(query))
+			)().then(responce => {
+				this.$toast.open({
+					message: '送信しました',
+					position: 'is-bottom',
+					type: 'is-success'
+				})
+			}).catch(e => {
 						this.$toast.open({
 							message: '送信に失敗',
 							position: 'is-bottom',
@@ -156,10 +160,6 @@ export default {
 						})
 					})
 			}
-		},
-		close () {
-			this.active = false
-			this.$emit('update:active', false)
 		}
 	},
 	computed: {
