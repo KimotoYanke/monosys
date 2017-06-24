@@ -10,7 +10,9 @@ import 'buefy/lib/buefy.css'
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
-Vue.use(Buefy)
+Vue.use(Buefy, {
+	defaultIconPack: 'fa'
+})
 Vue.config.silent = true
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'

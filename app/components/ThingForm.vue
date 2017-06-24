@@ -14,6 +14,8 @@ form.modal-card(@submit='send')
 				type='is-info'
 				position='is-right')
 					b-input(v-model='thing.isbn')
+			a.button.is-primary(@click='scannerModal')
+				b-icon(icon='barcode')
 		b-field(label='場所')
 				b-select(v-model='thing.where')
 					option(:value='index', v-for='(name, index) in PLACES') {{name}}
@@ -34,9 +36,11 @@ form.modal-card(@submit='send')
 </template>
 <script>
 import BInputTag from './BInputTag'
+import BarcodeScanner from './BarcodeScanner'
 import axios from 'axios'
 import BUDGET_FRAMES from '../budget-frames-type'
 import PLACES from '../where-type'
+import checkIsbn from '../check-isbn'
 const POST_ERRS = {
 	'no-name': '名前がありません',
 	'no-ids': 'RFIDもISBNもありません',
@@ -69,37 +73,7 @@ export default {
 	},
 	methods: {
 		checkIsbn (isbn) {
-			const digits = this.removeHyphen(isbn).split('')
-			const checkDigit = digits[digits.length - 1] * 1
-
-			// ISBN 13
-			if (digits.length === 13) {
-				const sum = (() => {
-					let s = 0
-					for (let i = 0; i < 12; i++) {
-						if (i % 2 === 0) {
-							s += digits[i] * 1
-						} else {
-							s += digits[i] * 3
-						}
-					}
-					return s
-				})()
-				const r = sum % 10 === 0 ? 0 : 10 - sum % 10
-				return r === checkDigit
-			} else if (digits.length === 10) {
-				const sum = (() => {
-					let s = 0
-					for (let i = 0; i < 9; i++) {
-						s += digits[i] * (10 - i)
-					}
-					return s
-				})()
-				const r = 11 - sum % 11
-				return r === checkDigit
-			} else {
-				return false
-			}
+			return checkIsbn(isbn) 
 		},
 		removeHyphen (str) {
 			return String(str).replace(/[^0-9]/g, '')
@@ -153,13 +127,23 @@ export default {
 					type: 'is-success'
 				})
 			}).catch(e => {
-						this.$toast.open({
-							message: '送信に失敗',
-							position: 'is-bottom',
-							type: 'is-danger'
-						})
-					})
+				this.$toast.open({
+					message: '送信に失敗',
+					position: 'is-bottom',
+					type: 'is-danger'
+				})
+			})
 			}
+		},
+		scannerModal () {
+			this.$modal.open({
+				component: BarcodeScanner,
+				props:{
+					callback:(code)=>{
+						this.thing.isbn=code
+					}
+				}
+			})
 		}
 	},
 	computed: {

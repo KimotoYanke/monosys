@@ -17,7 +17,7 @@ div
 			.nav-item
 				p.control
 					a.button.is-primary(@click='registerModal')
-						b-icon(icon='add')
+						b-icon(icon='plus')
 						span 登録
 	thing-table(
 		:data='things')
