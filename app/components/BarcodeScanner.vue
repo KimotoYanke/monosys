@@ -55,6 +55,7 @@ export default {
 				}
 			}
 		})
+		/*
 		Quagga.onProcessed((result)=> {
 			const drawingCtx = Quagga.canvas.ctx.overlay,
 				drawingCanvas = Quagga.canvas.dom.overlay;
@@ -77,7 +78,7 @@ export default {
 					Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
 				}
 			}
-		});
+		});*/
 	},
 	beforeDestroy () {
 		Quagga.stop()
