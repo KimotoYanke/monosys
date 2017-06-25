@@ -73,7 +73,7 @@ export default {
 	},
 	methods: {
 		checkIsbn (isbn) {
-			return checkIsbn(isbn) 
+			return checkIsbn(isbn)
 		},
 		removeHyphen (str) {
 			return String(str).replace(/[^0-9]/g, '')
@@ -138,9 +138,9 @@ export default {
 		scannerModal () {
 			this.$modal.open({
 				component: BarcodeScanner,
-				props:{
-					callback:(code)=>{
-						this.thing.isbn=code
+				props: {
+					callback: (code) => {
+						this.thing.isbn = code
 					}
 				}
 			})

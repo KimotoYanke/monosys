@@ -7,11 +7,11 @@ import Quagga from 'quagga'
 import checkIsbn from '../check-isbn'
 export default {
 	props: {
-		callback:Function
+		callback: Function
 	},
 	data () {
 		return {
-			latestResult:'aa',
+			latestResult: 'aa'
 		}
 	},
 	methods: {
@@ -39,17 +39,17 @@ export default {
 			}
 			Quagga.start()
 		})
-		Quagga.onDetected((result)=> {
-			const code = result.codeResult.code;
+		Quagga.onDetected((result) => {
+			const code = result.codeResult.code
 
 			if (this.lastResult !== code) {
-				this.latestResult=code
+				this.latestResult = code
 				this.$toast.open({
 					message: code,
 					position: 'is-bottom',
 					type: 'is-danger'
 				})
-				if(String(code).startsWith('978')&&checkIsbn(code)){
+				if (String(code).startsWith('978') && checkIsbn(code)) {
 					this.callback(code)
 					this.$emit('close')
 				}
