@@ -42,11 +42,11 @@ export default {
 		Quagga.onDetected((result) => {
 			const code = result.codeResult.code
 
-			if (this.lastResult != code) {
-				new Promise(()=>this.$toast.open({
+			if (this.lastResult !== code) {
+				new Promise(() => this.$toast.open({
 					message: code,
 					position: 'is-bottom',
-					duration:100
+					duration: 100
 				}))
 				this.lastResult = code
 				if (/97[89].{10}/.test(String(code))) {

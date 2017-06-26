@@ -39,10 +39,11 @@ form.modal-card(@submit='send')
 <script>
 import BInputTag from './BInputTag'
 import BarcodeScanner from './BarcodeScanner'
-import axios from 'axios'
 import BUDGET_FRAMES from '../budget-frames-type'
 import PLACES from '../where-type'
 import checkIsbn from '../check-isbn'
+import axios from 'axios'
+import qs from 'qs'
 const POST_ERRS = {
 	'no-name': '名前がありません',
 	'no-ids': 'RFIDもISBNもありません',
@@ -148,7 +149,13 @@ export default {
 			})
 		},
 		searchIsbn (isbn) {
-			axios.get('https://www.googleapis.com/books/v1/volumes',{q:isbn}).then((data)=>{console.log(data)})
+			const instance = axios.create({ })
+			instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+			instance.get('https://www.googleapis.com/books/v1/volumes/?q=isbn:' + isbn)
+				.then(data => {
+					if(data.data.totalItems){
+					this.thing.name=data.data.items[0].volumeInfo.title
+					}				})
 		}
 	},
 	computed: {
