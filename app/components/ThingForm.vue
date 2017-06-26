@@ -16,6 +16,8 @@ form.modal-card(@submit='send')
 					b-input(v-model='thing.isbn')
 			a.button.is-primary(@click='scannerModal')
 				b-icon(icon='barcode')
+			a.button.is-primary(@click='searchIsbn(isbn)')
+				b-icon(icon='search')
 		b-field(label='場所')
 				b-select(v-model='thing.where')
 					option(:value='index', v-for='(name, index) in PLACES') {{name}}
@@ -144,6 +146,9 @@ export default {
 					}
 				}
 			})
+		},
+		searchIsbn (isbn) {
+			axios.get('https://www.googleapis.com/books/v1/volumes',{q:isbn}).then((data)=>{console.log(data)})
 		}
 	},
 	computed: {
