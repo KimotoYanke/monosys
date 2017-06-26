@@ -16,7 +16,7 @@ form.modal-card(@submit='send')
 					b-input(v-model='thing.isbn')
 			a.button.is-primary(@click='scannerModal')
 				b-icon(icon='barcode')
-			a.button.is-primary(@click='searchIsbn(isbn)')
+			a.button.is-primary(@click='searchIsbn(thing.isbn)')
 				b-icon(icon='search')
 		b-field(label='場所')
 				b-select(v-model='thing.where')
@@ -43,7 +43,6 @@ import BUDGET_FRAMES from '../budget-frames-type'
 import PLACES from '../where-type'
 import checkIsbn from '../check-isbn'
 import axios from 'axios'
-import qs from 'qs'
 const POST_ERRS = {
 	'no-name': '名前がありません',
 	'no-ids': 'RFIDもISBNもありません',
@@ -149,13 +148,24 @@ export default {
 			})
 		},
 		searchIsbn (isbn) {
-			const instance = axios.create({ })
-			instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+			if (!isbn) {
+				if (!this.thing.isbn) {
+					this.$toast.open({
+						message: 'ISBNが指定されていません',
+						position: 'is-bottom',
+						type: 'is-danger'
+					})
+					return
+				}
+				isbn = this.thing.isbn
+			}
+			const instance = axios.create({})
 			instance.get('https://www.googleapis.com/books/v1/volumes/?q=isbn:' + isbn)
 				.then(data => {
-					if(data.data.totalItems){
-					this.thing.name=data.data.items[0].volumeInfo.title
-					}				})
+					if (data.data.totalItems) {
+						this.thing.name = data.data.items[0].volumeInfo.title
+					}
+				})
 		}
 	},
 	computed: {
