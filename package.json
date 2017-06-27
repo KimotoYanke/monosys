@@ -8,7 +8,10 @@
     "build:watch": "npm run build -- --watch",
     "test": "karma start --single-run --browsers PhantomJS",
     "eslint": "eslint --ext .js --ext .vue --ext .json app/ src/ --quiet",
-    "eslint:fix": "npm run eslint -- --fix"
+    "eslint:watch": "esw --ext .js --ext .vue --ext .json app/ src/ -w --fix --quiet",
+    "eslint:fix": "npm run eslint -- --fix",
+    "dev": "run-p build:watch start",
+    "dev:with-eslint": "run-p build:watch start eslint:watch"
   },
   "dependencies": {
     "body-parser": "~1.17.1",
@@ -39,6 +42,7 @@
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-node": "^4.2.2",
     "eslint-plugin-vue": "^2.0.1",
+    "eslint-watch": "^3.1.2",
     "express-restify-mongoose": "^4.1.3",
     "istanbul": "^0.4.5",
     "istanbul-instrumenter-loader": "^2.0.0",

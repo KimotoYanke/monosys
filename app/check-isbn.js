@@ -2,7 +2,6 @@ export default function checkIsbn (isbn) {
 	const digits = String(isbn).replace(/[^0-9]/g, '').split('')
 	const checkDigit = digits[digits.length - 1] * 1
 
-			// ISBN 13
 	if (digits.length === 13) {
 		const sum = (() => {
 			let s = 0
