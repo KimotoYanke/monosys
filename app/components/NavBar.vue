@@ -1,23 +1,23 @@
 <template lang="pug">
-	nav.nav.has-shadow
-		.nav-left
-			a.nav-item(href='/', style='font-family: "Rubik";') Monosys
-		slot
-			.nav-item
-				b-field
-					b-input(
-						type='search'
-						icon='search'
-						v-model='searchValue')
-					p.control
-						button.button.is-primary(@click='search')
-							b-icon(icon='search')
-							span 検索
-			.nav-item
+nav.nav.has-shadow
+	.nav-left
+		a.nav-item(href='/', style='font-family: "Rubik";') Monosys
+	slot
+		.nav-item
+			b-field
+				b-input(
+					type='search'
+					icon='search'
+					v-model='searchValue')
 				p.control
-					a.button.is-primary(@click='registerModal')
-						b-icon(icon='plus')
-						span 登録
+					button.button.is-primary(@click='search')
+						b-icon(icon='search')
+						span 検索
+		.nav-item
+			p.control
+				a.button.is-primary(@click='registerModal')
+					b-icon(icon='plus')
+					span 登録
 </template>
 <script>
 import ThingForm from '../components/ThingForm.vue'
