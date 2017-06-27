@@ -1,9 +1,6 @@
 <template lang="pug">
 div
-	nav.nav.has-shadow
-		.nav-left
-			a.nav-item(href='/', style='font-family: "Rubik";') Monosys
-		.nav-right
+	nav-bar
 			.nav-item
 				b-field
 					b-input(
@@ -23,6 +20,7 @@ div
 		:data='things')
 </template>
 <script>
+import NavBar from '../components/NavBar.vue'
 import ThingTable from '../components/ThingTable.vue'
 import ThingForm from '../components/ThingForm.vue'
 import { mapState } from 'vuex'
@@ -86,6 +84,7 @@ export default {
 		}
 	},
 	components: {
+		'nav-bar': NavBar,
 		'thing-table': ThingTable,
 		'thing-form': ThingForm
 	}
