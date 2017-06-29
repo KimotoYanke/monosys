@@ -1,7 +1,11 @@
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 
-$primary: #00a5ff;
+$sky: #00a5ff;
+$sky-invert: findColorInvert($sky);
+$earth: #cd850a;
+$earth-invert: findColorInvert($earth);
+$primary: $sky;
 $primary-invert: findColorInvert($primary);
 $danger: #ff3900;
 $danger-invert: findColorInvert($danger);
@@ -11,6 +15,8 @@ $warning-invert: findColorInvert($warning);
 $colors: (
 "white": ($white, $black),
 "black": ($black, $white),
+"sky": ($sky, $sky-invert),
+"earth": ($earth, $earth-invert),
 "light": ($light, $light-invert),
 "dark": ($dark, $dark-invert),
 "primary": ($primary, $primary-invert),

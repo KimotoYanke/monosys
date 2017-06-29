@@ -2,11 +2,11 @@
 div
 	nav-bar
 	section.hero.is-sky.is-small
-		.hero-body.sky
+		.hero-body.upper
 			.container
 				.title Monosys
 	section.hero.is-earth
-		.hero-body.earth
+		.hero-body
 			.container
 				.subtitle NITTC Procon
 </template>
@@ -32,10 +32,10 @@ export default {
 	}
 }
 </script>
-<style lang="sass" scoped>
-.hero-body
-	&.sky
-		padding-bottom: 0
-	&.earth
-		padding-top: 0
+<style lang="scss">
+.hero-body{
+	.upper{
+		padding-bottom:0px;
+	}
+}
 </style>

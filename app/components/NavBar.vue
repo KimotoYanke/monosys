@@ -6,7 +6,6 @@ nav.nav.has-shadow
 </template>
 <script>
 export default {
-	props: ['data'],
 	data () {
 		return {
 		}

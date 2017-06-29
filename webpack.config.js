@@ -22,7 +22,11 @@ module.exports = [{
 			{
 				test: /\.vue$/,
 				use: {
-					loader: 'vue-loader'
+					loader: 'vue-loader',
+					options: {
+						scss: 'vue-style-loader!css-loader!sass-loader',
+						sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+					}
 				}
 			},
 			{
@@ -46,7 +50,7 @@ module.exports = [{
 				}]
 			},
 			{
-				test: /\.scss$/,
+				test: /\.sass$/,
 				use: [{
 					loader: "style-loader"
 				}, {
@@ -67,34 +71,35 @@ module.exports = [{
 		extensions: ['.js', '.vue', '.json']
 	},
 	devtool: 'inline-source-map'
-},{
-	entry: './app/stylesheets/index',
-	output: {
-		path: path.resolve(__dirname, './dist'),
-		filename: 'bundle.css'
-	},
-	module: {
-		loaders: [
-			{
-				test: /\.css$/,
-				loader: ExtractTextPlugin.extract({fallback:'style-loader', use:'css-loader'})
-			},
-			{
-				test: /\.scss$/,
-				loader: ExtractTextPlugin.extract({fallback:'style-loader', use:'css-loader!sass-loader'})
-			},
-			{
-				test: /\.sass$/,
-				loader: ExtractTextPlugin.extract({fallback:'style-loader', use:'css-loader!sass-loader'})
-			}
-		]
+}
+	,{
+		entry: './app/stylesheets/index',
+		output: {
+			path: path.resolve(__dirname, './dist'),
+			filename: 'bundle.css'
+		},
+		module: {
+			loaders: [
+				{
+					test: /\.css$/,
+					loader: ExtractTextPlugin.extract({fallback:'style-loader', use:'css-loader'})
+				},
+				{
+					test: /\.scss$/,
+					loader: ExtractTextPlugin.extract({fallback:'style-loader', use:'css-loader!sass-loader'})
+				},
+				{
+					test: /\.sass$/,
+					loader: ExtractTextPlugin.extract({fallback:'style-loader', use:'css-loader!sass-loader'})
+				}
+			]
 
-	},
-	resolve: {
-		extensions: ['.css','.sass','.scss','.js']
-	},
-	plugins:[
-		new ExtractTextPlugin("[name].css")
-	],
-	devtool: 'inline-source-map'
-}]
+		},
+		resolve: {
+			extensions: ['.css','.sass','.scss','.js']
+		},
+		plugins:[
+			new ExtractTextPlugin("[name].css")
+		],
+		devtool: 'inline-source-map'
+	}]
