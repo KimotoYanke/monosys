@@ -5,7 +5,6 @@ nav.nav.has-shadow
 	slot
 </template>
 <script>
-import ThingForm from '../components/ThingForm.vue'
 export default {
 	props: ['data'],
 	data () {
