@@ -1,8 +1,12 @@
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 
-$primary: #00a5ff
+$primary: #00a5ff;
 $primary-invert: findColorInvert($primary);
+$danger: #ff3900;
+$danger-invert: findColorInvert($danger);
+$warning: #ffba00;
+$warning-invert: findColorInvert($warning);
 
 $colors: (
 "white": ($white, $black),

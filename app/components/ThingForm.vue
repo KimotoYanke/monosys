@@ -118,6 +118,7 @@ export default {
 					position: 'is-bottom',
 					type: 'is-danger'
 				})
+				return false
 			} else {
 				(this.thing._id
 					? () => axios.put('/api/v1/thing/' + this.thing._id, JSON.stringify(query))
@@ -128,12 +129,14 @@ export default {
 					position: 'is-bottom',
 					type: 'is-success'
 				})
+				return false
 			}).catch(e => {
 				this.$toast.open({
 					message: '送信に失敗',
 					position: 'is-bottom',
 					type: 'is-danger'
 				})
+				return false
 			})
 			}
 		},
