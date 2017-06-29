@@ -4,9 +4,9 @@ import VueRouter from 'vue-router'
 import { sync } from 'vuex-router-sync'
 import store from './store'
 import ThingPage from './pages/thing.vue'
+import IndexPage from './pages/index.vue'
 import Buefy from 'buefy'
 import axios from 'axios'
-import 'buefy/lib/buefy.css'
 
 Vue.use(Vuex)
 Vue.use(VueRouter)
@@ -18,6 +18,8 @@ Vue.config.silent = true
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const routes = [
+	{ path: '/', redirect: '/index' },
+	{ path: '/index', component: IndexPage },
 	{ path: '/thing', component: ThingPage }
 ]
 
@@ -29,6 +31,5 @@ sync(store, router)
 
 new Vue({
 	router,
-	store,
-	render: h => h(ThingPage)
+	store
 }).$mount('#app')
