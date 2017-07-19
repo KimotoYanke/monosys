@@ -1,13 +1,11 @@
 <template lang="pug">
 div
 	nav-bar
+		router-link.nav-item(to='thing' slot='left') Thing
 	section.hero.is-sky.is-small
-		.hero-body.sky
+		.hero-body.is-sky-and-earth
 			.container
 				.title Monosys
-	section.hero.is-earth
-		.hero-body.earth
-			.container
 				.subtitle NITTC Procon
 </template>
 <script>
@@ -33,9 +31,5 @@ export default {
 }
 </script>
 <style lang="sass" scoped>
-.hero-body
-	&.sky
-		padding-bottom: 0
-	&.earth
-		padding-top: 0
+@import "../stylesheets/index.scss"
 </style>

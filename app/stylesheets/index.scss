@@ -31,6 +31,9 @@ $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
 
+.is-sky-and-earth{
+	background:linear-gradient($sky 50%,$earth calc(50% + 1px))
+}
 // Import Bulma and Buefy styles
 @import "~bulma";
 @import "~buefy/src/scss/buefy";

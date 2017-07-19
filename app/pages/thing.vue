@@ -1,7 +1,7 @@
 <template lang="pug">
 div
 	nav-bar
-		.nav-item
+		.nav-item(slot='right')
 			b-field
 				b-input(
 					type='search'
@@ -11,7 +11,7 @@ div
 					button.button.is-primary(@click='search')
 						b-icon(icon='search')
 						span 検索
-		.nav-item
+		.nav-item(slot='right')
 			p.control
 				a.button.is-primary(@click='registerModal')
 					b-icon(icon='plus')

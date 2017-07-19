@@ -1,8 +1,10 @@
 <template lang="pug">
 nav.nav.has-shadow
-	.nav-left.is-primary
-		a.nav-item(href='/', style='font-family: "Rubik";') Monosys
-	slot
+	.nav-left
+		router-link.nav-item.is-primary(to='index', style='font-family: "Rubik";') Monosys
+		slot(name='left')
+	.nav-right
+		slot(name='right')
 </template>
 <script>
 export default {
