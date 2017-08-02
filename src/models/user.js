@@ -9,4 +9,4 @@ const User = new Schema({
 
 User.plugin(passportLocalMongoose)
 
-module.exports = Mongoose.model('user', User)
+export default Mongoose.model('user', User)

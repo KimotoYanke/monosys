@@ -1,5 +1,6 @@
 /*eslint no-console:0*/
 import express from 'express'
+import expressSession from 'express-session'
 import path from 'path'
 import logger from 'morgan'
 import mongoose from 'mongoose'
@@ -7,10 +8,13 @@ import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
 import sassMiddleware from 'node-sass-middleware'
 import restify from 'express-restify-mongoose'
+import passport from 'passport'
+import { LocalStrategy } from 'passport-local'
 
 import index from './routes/index'
 
-import thing from './models/thing'
+import Thing from './models/thing'
+import User from './models/user'
 
 const app = express()
 const router = express.Router()
@@ -39,6 +43,13 @@ app.use(sassMiddleware({
 }))
 app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use(express.static(path.join(__dirname, '..', 'dist')))
+app.use(expressSession({
+	secret: 'THE SECRET MUST BE CHANGED EVERY YEAR',
+	resave: false,
+	saveUninitialized: false
+}))
+app.use(passport.initialize())
+app.use(passport.session())
 
 restify.defaults({
 	onError (err, req, res, next) {
@@ -50,9 +61,13 @@ restify.defaults({
 	}
 
 })
-restify.serve(router, thing)
+restify.serve(router, Thing)
 router.use(index)
 app.use(router)
+
+passport.use(new LocalStrategy(User.authenticate()))
+passport.serializeUser(User.serializeUser())
+passport.deserializeUser(User.deserializeUser())
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
