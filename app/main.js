@@ -5,6 +5,7 @@ import { sync } from 'vuex-router-sync'
 import store from './store'
 import ThingPage from './pages/thing.vue'
 import IndexPage from './pages/index.vue'
+import LoginPage from './pages/login.vue'
 import Buefy from 'buefy'
 import axios from 'axios'
 
@@ -20,7 +21,8 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 const routes = [
 	{ path: '/', redirect: '/index' },
 	{ path: '/index', component: IndexPage },
-	{ path: '/thing', component: ThingPage }
+	{ path: '/thing', component: ThingPage },
+	{ path: '/login', component: LoginPage }
 ]
 
 const router = new VueRouter({

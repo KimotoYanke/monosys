@@ -9,7 +9,8 @@
 	},
 	"extends": ["eslint:recommended","vue"],
 	"plugins":[
-		"json"
+		"json",
+		"pug"
 	],
 	"parserOptions": {
 		"sourceType": "module"

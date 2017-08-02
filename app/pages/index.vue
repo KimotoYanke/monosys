@@ -2,6 +2,7 @@
 div
 	nav-bar
 		router-link.nav-item(to='thing' slot='left') Thing
+		router-link.nav-item(to='login' slot='right') Login
 	section.hero.is-sky.is-small
 		.hero-body.is-sky-and-earth
 			.container
