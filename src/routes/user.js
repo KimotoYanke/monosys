@@ -13,6 +13,10 @@ router.get('/logout', function (req, res) {
 })
 
 router.post('/register', function (req, res) {
+	if (res.body.username === '0') {
+		res.redirect('/')
+		return
+	}
 	User.register(new User({ username: req.body.username }), req.body.password, function (err, account) {
 		if (err) {
 			return res.render('register', { account: account })
@@ -22,6 +26,10 @@ router.post('/register', function (req, res) {
 			res.redirect('/')
 		})
 	})
+})
+
+router.get('/loggedin', function (req, res) {
+	res.send(req.isAuthenticated() ? req.user : '0')
 })
 
 module.exports = router
