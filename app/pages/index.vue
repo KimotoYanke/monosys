@@ -2,7 +2,7 @@
 div
 	nav-bar
 		router-link.nav-item(to='thing' slot='left') Thing
-		router-link.nav-item(to='login' slot='right') Login
+		user-nav-item(slot='right')
 	section.hero.is-sky.is-small
 		.hero-body.is-sky-and-earth
 			.container
@@ -11,6 +11,7 @@ div
 </template>
 <script>
 import NavBar from '../components/NavBar.vue'
+import UserNavItem from '../components/UserNavItem.vue'
 import { mapState } from 'vuex'
 
 export default {
@@ -27,7 +28,8 @@ export default {
 	methods: {
 	},
 	components: {
-		'nav-bar': NavBar
+		'nav-bar': NavBar,
+		'user-nav-item': UserNavItem
 	}
 }
 </script>

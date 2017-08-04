@@ -17,6 +17,7 @@ Vue.use(Buefy, {
 Vue.config.silent = true
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
+axios.defaults.withCredentials = true
 
 const routes = [
 	{ path: '/', redirect: '/index' },

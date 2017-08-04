@@ -1,4 +1,5 @@
 {
+	"setUsername": "SET_USERNAME",
 	"fetch": "FETCH",
 	"push": "PUSH"
 }

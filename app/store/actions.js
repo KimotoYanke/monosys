@@ -10,3 +10,21 @@ export function fetch ({ commit }, query) {
 		})
 	})
 }
+
+export function login ({ commit }, query) {
+	axios.post('/user/login', query)
+		.then(responce => {
+			commit(types.setUsername, {
+				username: query.username
+			})
+			console.log(responce)
+		})
+}
+
+export function register ({ commit }, query) {
+	axios.post('/user/register', query)
+		.then(responce => commit(types.setUsername, {
+			username: query.username
+		}))
+}
+

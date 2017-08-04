@@ -9,8 +9,7 @@ import bodyParser from 'body-parser'
 import sassMiddleware from 'node-sass-middleware'
 import restify from 'express-restify-mongoose'
 import passport from 'passport'
-import passportLocal from 'passport-local'
-const LocalStrategy = passportLocal.Strategy
+import { Strategy as LocalStrategy } from 'passport-local'
 
 import index from './routes/index'
 
