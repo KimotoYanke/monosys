@@ -34,11 +34,13 @@ export default {
 			const username = this.username
 			const password = this.password
 			this.$store.dispatch('login', { username, password })
+			this.$router.push('index')
 		},
 		register () {
 			const username = this.username
 			const password = this.password
 			this.$store.dispatch('register', { username, password })
+			this.$router.push('index')
 		}
 	},
 	components: {

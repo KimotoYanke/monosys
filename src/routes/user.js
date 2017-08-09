@@ -13,13 +13,13 @@ router.get('/logout', function (req, res) {
 })
 
 router.post('/register', function (req, res) {
-	if (res.body.username === '0') {
+	if (req.body.username === 'unloggedin') {
 		res.redirect('/')
 		return
 	}
 	User.register(new User({ username: req.body.username }), req.body.password, function (err, account) {
 		if (err) {
-			return res.render('register', { account: account })
+			return res.send(err)
 		}
 
 		passport.authenticate('local')(req, res, function () {
@@ -29,7 +29,7 @@ router.post('/register', function (req, res) {
 })
 
 router.get('/loggedin', function (req, res) {
-	res.send(req.isAuthenticated() ? req.user : '0')
+	res.send(req.isAuthenticated() ? req.user.username : '')
 })
 
 module.exports = router

@@ -36,3 +36,5 @@ new Vue({
 	router,
 	store
 }).$mount('#app')
+
+store.dispatch('checkLoggedIn')
