@@ -1,4 +1,5 @@
 import thing from '../pages/thing.vue'
+import login from '../pages/login.vue'
 import ThingTable from '../components/ThingTable.vue'
 import ThingForm from '../components/ThingForm.vue'
 import Vue from 'vue'
@@ -26,6 +27,24 @@ describe('test for components', () => {
 		})
 		it('computed', () => {
 			expect(thing.computed).to.have.keys('things')
+		})
+		it('logo', () => {
+			expect(
+				instance.$el.querySelector('nav.nav > .nav-left > a.nav-item')
+				.textContent).to.equals('Monosys')
+		})
+	})
+	it('login', () => {
+		const instance = getInstance(login)
+		it('data', () => {
+			expect(thing.data).to.be.a('Function')
+		})
+		it('components', () => {
+			expect(thing.components).to.have.keys('nav-bar')
+		})
+		it('methods', () => {
+			expect(thing.computed).to.have.keys('login')
+			expect(thing.computed).to.have.keys('register')
 		})
 		it('logo', () => {
 			expect(

@@ -8,7 +8,7 @@ div
 			b-field(label='ユーザーネーム')
 				b-input(v-model='username')
 			b-field(label='パスワード')
-				b-input(v-model='password', password-reveal)
+				b-input(v-model='password' type='password' password-reveal)
 			button.button.is-primary(@click='login') ログイン
 			button.button.is-primary(@click='register') 登録
 </template>
@@ -24,8 +24,7 @@ export default {
 		}
 	},
 	computed: {
-		...mapState({
-		})
+		...mapState({})
 	},
 	mounted () {
 	},

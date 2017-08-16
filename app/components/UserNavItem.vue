@@ -1,10 +1,10 @@
 <template lang="pug">
 	span.nav-item
 		span.nav-item
-			a.button.is-primary(v-if='username') {{ username }}
+			a.button.is-primary(v-if='!!username') {{ username }}
 		span.nav-item
 			router-link.button(v-if='!username' to='login') Login
-			a.button(v-if='username' @click='logout') Logout
+			a.button(v-if='!!username' @click='logout') Logout
 </template>
 <script>
 import { mapState } from 'vuex'
