@@ -1,5 +1,3 @@
-var webpackConfig = require('./webpack.config.js')[0]
-
 module.exports = function (config) {
     config.set({
 
@@ -14,27 +12,28 @@ module.exports = function (config) {
             'karma-coveralls',
             'karma-mocha-reporter',
             'karma-sourcemap-loader',
+            'karma-spec-reporter',
             'karma-webpack'
         ],
 
         files: [
-            'app/test/index.spec.js'
+            './node_modules/babel-polyfill/dist/polyfill.min.js',
+            './app/test/index.spec.js'
         ],
 
         exclude: [
         ],
 
         preprocessors: {
-            'app/test/*.spec.js': ['webpack', 'sourcemap']
+            'app/test/*.spec.js': ['webpack', 'sourcemap', 'coverage']
         },
 
-        reporters: ['mocha', 'coverage', 'coveralls'],
+        reporters: ['spec', 'coverage', 'coveralls'],
 
         coverageReporter: {
             reporters: [
                 { type: 'text' },
-                { type: 'lcov' },
-                { type: 'html' }
+                { type: 'lcov', dir: './coverage' }
             ]
         },
 
@@ -44,19 +43,19 @@ module.exports = function (config) {
 
         logLevel: config.LOG_INFO,
 
-        autoWatch: false,
+        autoWatch: true,
 
         browsers: ['PhantomJS'],
 
-        singleRun: false,
-        concurrency: Infinity,
         mime: {
             'text/x-typescript': ['ts', 'tsx'],
             'text/javascript': ['js']
         },
 
         webpack: {
-            entry: './app/src/main.js',
+            entry: [
+                './app/src/main.js'
+            ],
             module: {
                 rules: [
                     {
@@ -120,7 +119,7 @@ module.exports = function (config) {
                 },
                 extensions: ['.js', '.vue', '.json']
             },
-            devtool: 'inline-source-map'
+            devtool: '#inline-source-map'
         }
     })
 }

@@ -21,7 +21,7 @@ div
 				b-table-column(label='タグ', field='tags')
 					.tag-list
 						span.tag(v-for='tag in props.row.tags') {{tag}}
-				b-table-column(label='登録日', field='date', sortable, custom-sort='dateSort') {{ dateFormat(props.row.date) }}
+				b-table-column(label='登録日', field='date', sortable, :custom-sort='dateSort') {{ dateFormat(props.row.date) }}
 				b-table-column(label='編集') 
 					button.button.is-small(@click='editModal(props.row)') 編集
 </template>
@@ -31,16 +31,7 @@ export default {
     props: ['data'],
     data () {
         return {
-            selected: {},
-            dateSort: (a, b) => {
-                if (!a) {
-                    return -1
-                }
-                if (!b) {
-                    return 1
-                }
-                return new Date(a).getTime() - new Date(b).getTime()
-            }
+            selected: {}
         }
     },
     methods: {
@@ -58,6 +49,15 @@ export default {
                     thing: t
                 }
             })
+        },
+        dateSort (a, b) {
+            if (!a) {
+                return -1
+            }
+            if (!b) {
+                return 1
+            }
+            return new Date(a).getTime() - new Date(b).getTime()
         }
     },
     mounted () {
