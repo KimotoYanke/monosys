@@ -13,7 +13,8 @@ module.exports = function (config) {
             'karma-mocha-reporter',
             'karma-sourcemap-loader',
             'karma-spec-reporter',
-            'karma-webpack'
+            'karma-webpack',
+            'karma-remap-istanbul'
         ],
 
         files: [
@@ -25,15 +26,16 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
-            'app/test/*.spec.js': ['webpack', 'sourcemap', 'coverage']
+            'app/test/*.spec.js': ['webpack', 'sourcemap']
         },
 
         reporters: ['spec', 'coverage', 'coveralls'],
 
         coverageReporter: {
+            dir: './coverage',
             reporters: [
-                { type: 'text' },
-                { type: 'lcov', dir: './coverage' }
+                { type: 'lcov' },
+                { type: 'text' }
             ]
         },
 
@@ -52,63 +54,21 @@ module.exports = function (config) {
             'text/javascript': ['js']
         },
 
+        webpackMiddleware: {
+            quiet: true
+        },
+
         webpack: {
-            entry: [
-                './app/src/main.js'
-            ],
             module: {
                 rules: [
                     {
+                        test: /\.vue$/,
+                        loaders: ['istanbul-instrumenter-loader', 'vue-loader']
+                    },
+                    {
                         test: /\.js$/,
                         exclude: /node_modules/,
-                        use: {
-                            loader: 'babel-loader',
-                            options: {
-                                presets: ['es2015']
-                            }
-                        }
-                    },
-                    {
-                        test: /\.vue$/,
-                        use: {
-                            loader: 'vue-loader',
-                            options: {
-                                scss: 'vue-style-loader!css-loader!sass-loader',
-                                sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
-                            }
-                        }
-                    },
-                    {
-                        test: /\.pug$/,
-                        use: {
-                            loader: 'pug-loader'
-                        }
-                    },
-                    {
-                        test: /\.json$/,
-                        use: {
-                            loader: 'json-loader'
-                        }
-                    },
-                    {
-                        test: /\.css$/,
-                        use: [{
-                            loader: 'style-loader'
-                        }, {
-                            loader: 'css-loader'
-                        }]
-                    },
-                    {
-                        test: /\.sass$/,
-                        use: [{
-                            loader: 'style-loader'
-                        }, {
-                            loader: 'css-loader'
-                        }, {
-                            loader: 'sass-loader',
-                            options: {
-                            }
-                        }]
+                        loaders: ['istanbul-instrumenter-loader', 'babel-loader']
                     }
                 ]
 
@@ -119,7 +79,7 @@ module.exports = function (config) {
                 },
                 extensions: ['.js', '.vue', '.json']
             },
-            devtool: '#inline-source-map'
+            devtool: 'cheap-module-source-map'
         }
     })
 }
