@@ -7,42 +7,43 @@
 		"mocha": true,
 		"es6": true
 	},
-	"extends": ["eslint:recommended","vue"],
+	"extends": ["standard","vue"],
 	"plugins":[
 		"json",
 		"pug"
 	],
 	"parserOptions": {
-		"sourceType": "module"
-	},
-	"globals": {
-		"assert": false,
-		"expect": false,
-		"should": false,
-		"sinon": false,
-		"Promise": false,
-		"ES6Promise": false
-	},
-	"rules": {
-		"indent": [
-			"error",
-			"tab"
-		],
-		"linebreak-style": [
-			"error",
-			"unix"
-		],
-		"quotes": [
-			"error",
-			"single"
-		],
-		"semi": [
-			"error",
-			"never"
-		],
-		"global-require":[
-			"error"
-		],
-		"no-trailing-spaces":2
-	}
+        "sourceType": "module",
+        "ecmaVersion": 6
+    },
+    "globals": {
+        "assert": false,
+        "expect": false,
+        "should": false,
+        "sinon": false,
+        "Promise": false,
+        "ES6Promise": false
+    },
+    "rules": {
+        "indent": [
+            "error",
+        "tab"
+        ],
+        "linebreak-style": [
+            "error",
+        "unix"
+        ],
+        "quotes": [
+            "error",
+        "single"
+        ],
+        "semi": [
+            "error",
+        "never"
+        ],
+        "global-require":[
+            "error"
+        ],
+        "no-trailing-spaces":2
+    }
 }

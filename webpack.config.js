@@ -2,7 +2,7 @@ var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = [{
-	entry: './app/main.js',
+	entry: './app/src/main.js',
 	output: {
 		path: path.resolve(__dirname, './dist'),
 		filename: 'bundle.js'
@@ -73,7 +73,7 @@ module.exports = [{
 	devtool: 'inline-source-map'
 }
 	,{
-		entry: './app/stylesheets/index',
+		entry: './app/src/stylesheets/index',
 		output: {
 			path: path.resolve(__dirname, './dist'),
 			filename: 'bundle.css'
