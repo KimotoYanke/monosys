@@ -10,6 +10,7 @@
 	"extends": ["standard","vue"],
 	"plugins":[
 		"json",
+		"chai-friendly",
 		"pug"
 	],
 	"parserOptions": {
@@ -27,7 +28,7 @@
     "rules": {
         "indent": [
             "error",
-        "tab"
+            4
         ],
         "linebreak-style": [
             "error",
@@ -44,6 +45,8 @@
         "global-require":[
             "error"
         ],
-        "no-trailing-spaces":2
+        "no-trailing-spaces": 2,
+        "no-unused-expressions": 0,
+        "chai-friendly/no-unused-expressions": 2
     }
 }

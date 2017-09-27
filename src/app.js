@@ -22,7 +22,7 @@ const router = express.Router()
 // the promise of Mongoose is the native Promise
 mongoose.Promise = global.Promise
 mongoose.connect('mongodb://localhost:27017/database').then(() => {
-	console.log('I\'m Running.')
+    console.log('I\'m Running.')
 })
 
 // view engine setup
@@ -36,29 +36,29 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(sassMiddleware({
-	src: path.join(__dirname, '..', 'public'),
-	dest: path.join(__dirname, '..', 'public'),
-	indentedSyntax: true, // true = .sass and false = .scss
-	sourceMap: true
+    src: path.join(__dirname, '..', 'public'),
+    dest: path.join(__dirname, '..', 'public'),
+    indentedSyntax: true, // true = .sass and false = .scss
+    sourceMap: true
 }))
 app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use(express.static(path.join(__dirname, '..', 'dist')))
 app.use(expressSession({
-	secret: 'THE SECRET MUST BE CHANGED EVERY YEAR',
-	resave: false,
-	saveUninitialized: false
+    secret: 'THE SECRET MUST BE CHANGED EVERY YEAR',
+    resave: false,
+    saveUninitialized: false
 }))
 app.use(passport.initialize())
 app.use(passport.session())
 
 restify.defaults({
-	onError (err, req, res, next) {
-		const statusCode = req.erm.statusCode
-		res.status(statusCode).json({
-			message: err.message
-		})
-		console.log(req)
-	}
+    onError (err, req, res, next) {
+        const statusCode = req.erm.statusCode
+        res.status(statusCode).json({
+            message: err.message
+        })
+        console.log(req)
+    }
 
 })
 restify.serve(router, Thing)
@@ -71,20 +71,20 @@ passport.deserializeUser(User.deserializeUser())
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-	const err = new Error('Not Found')
-	err.status = 404
-	next(err)
+    const err = new Error('Not Found')
+    err.status = 404
+    next(err)
 })
 
 // error handler
 app.use(function (err, req, res) {
-	// set locals, only providing error in development
-	res.locals.message = err.message
-	res.locals.error = req.app.get('env') === 'development' ? err : {}
+    // set locals, only providing error in development
+    res.locals.message = err.message
+    res.locals.error = req.app.get('env') === 'development' ? err : {}
 
-	// render the error page
-	res.status(err.status || 500)
-	res.render('error')
+    // render the error page
+    res.status(err.status || 500)
+    res.render('error')
 })
 
 module.exports = app

@@ -12,7 +12,7 @@ import axios from 'axios'
 Vue.use(Vuex)
 Vue.use(VueRouter)
 Vue.use(Buefy, {
-	defaultIconPack: 'fa'
+    defaultIconPack: 'fa'
 })
 Vue.config.silent = true
 
@@ -20,21 +20,21 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.withCredentials = true
 
 const routes = [
-	{ path: '/', redirect: '/index' },
-	{ path: '/index', component: IndexPage },
-	{ path: '/thing', component: ThingPage },
-	{ path: '/login', component: LoginPage }
+    { path: '/', redirect: '/index' },
+    { path: '/index', component: IndexPage },
+    { path: '/thing', component: ThingPage },
+    { path: '/login', component: LoginPage }
 ]
 
 const router = new VueRouter({
-	routes
+    routes
 })
 
 sync(store, router)
 
 new Vue({
-	router,
-	store
+    router,
+    store
 }).$mount('#app')
 
 store.dispatch('checkLoggedIn')

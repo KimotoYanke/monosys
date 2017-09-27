@@ -3,8 +3,8 @@ import passportLocalMongoose from 'passport-local-mongoose'
 
 const Schema = Mongoose.Schema
 const User = new Schema({
-	'username': String,
-	'password': String
+    'username': String,
+    'password': String
 })
 
 User.plugin(passportLocalMongoose)

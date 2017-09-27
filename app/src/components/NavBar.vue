@@ -8,14 +8,14 @@ nav.nav.has-shadow
 </template>
 <script>
 export default {
-	data () {
-		return {
-		}
-	},
-	methods: {
-	},
-	mounted () {
-	}
+    data () {
+        return {
+        }
+    },
+    methods: {
+    },
+    mounted () {
+    }
 }
 </script>
 <style lang="sass">

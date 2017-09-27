@@ -7,8 +7,8 @@
     "build": "webpack",
     "build:watch": "npm run build -- --watch",
     "test": "karma start --single-run --browsers PhantomJS",
-    "eslint": "eslint --ext .js --ext .vue --ext .json app/ src/ --quiet",
-    "eslint:watch": "esw --ext .js --ext .vue --ext .json app/ src/ -w --fix --quiet",
+    "eslint": "esw --ext .js --ext .vue --ext .json app/ src/",
+    "eslint:watch": "npm run eslint -- -w --fix --quiet",
     "eslint:fix": "npm run eslint -- --fix",
     "dev": "run-p build:watch start",
     "dev:with-eslint": "run-p build:watch start eslint:watch"
@@ -42,6 +42,7 @@
     "eslint-config-standard": "^10.2.1",
     "eslint-config-vue": "^2.0.2",
     "eslint-plugin-chai-expect": "^1.1.1",
+    "eslint-plugin-chai-friendly": "^0.4.0",
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-node": "^4.2.2",

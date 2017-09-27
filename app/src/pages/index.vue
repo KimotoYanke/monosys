@@ -15,22 +15,22 @@ import UserNavItem from '../components/UserNavItem.vue'
 import { mapState } from 'vuex'
 
 export default {
-	data () {
-		return {
-		}
-	},
-	computed: {
-		...mapState({
-		})
-	},
-	mounted () {
-	},
-	methods: {
-	},
-	components: {
-		'nav-bar': NavBar,
-		'user-nav-item': UserNavItem
-	}
+    data () {
+        return {
+        }
+    },
+    computed: {
+        ...mapState({
+        })
+    },
+    mounted () {
+    },
+    methods: {
+    },
+    components: {
+        'nav-bar': NavBar,
+        'user-nav-item': UserNavItem
+    }
 }
 </script>
 <style lang="sass" scoped>

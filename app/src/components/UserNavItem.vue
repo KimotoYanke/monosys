@@ -10,24 +10,24 @@
 import { mapState } from 'vuex'
 
 export default {
-	data () {
-		return {
-		}
-	},
-	computed: {
-		...mapState({
-			username: 'username'
-		})
-	},
-	mounted () {
-	},
-	methods: {
-		logout () {
-			this.$store.dispatch('logout')
-		}
-	},
-	components: {
-	}
+    data () {
+        return {
+        }
+    },
+    computed: {
+        ...mapState({
+            username: 'username'
+        })
+    },
+    mounted () {
+    },
+    methods: {
+        logout () {
+            this.$store.dispatch('logout')
+        }
+    },
+    components: {
+    }
 }
 </script>
 <style lang="sass" scoped>
