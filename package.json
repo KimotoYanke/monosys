@@ -7,7 +7,7 @@
     "build": "webpack",
     "build:watch": "npm run build -- --watch",
     "test": "karma start --single-run --browsers PhantomJS",
-    "eslint": "esw --ext .js --ext .vue --ext .json app/ src/",
+    "eslint": "esw --ext .js --ext .vue --ext .json app/ src/ .",
     "eslint:watch": "npm run eslint -- -w --fix --quiet",
     "eslint:fix": "npm run eslint -- --fix",
     "dev": "run-p build:watch start",
