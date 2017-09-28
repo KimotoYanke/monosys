@@ -1,10 +1,10 @@
-import index from '../src/pages/index.vue'
-import thing from '../src/pages/thing.vue'
-import login from '../src/pages/login.vue'
-import ThingTable from '../src/components/ThingTable.vue'
-import ThingForm from '../src/components/ThingForm.vue'
-import store from '../src/store/'
-import router from '../src/router'
+import index from '@/pages/index.vue'
+import thing from '@/pages/thing.vue'
+import login from '@/pages/login.vue'
+import ThingTable from '@/components/ThingTable.vue'
+import ThingForm from '@/components/ThingForm.vue'
+import store from '@/store/'
+import router from '@/router'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
@@ -55,7 +55,7 @@ describe('test for components', function () {
         it('logo', () => {
             expect(
                 instance.$el.querySelector('nav.nav > .nav-left > a.nav-item')
-                .textContent).to.equals('Monosys')
+                    .textContent).to.equals('Monosys')
         })
     })
     describe('thing', function () {
@@ -72,7 +72,7 @@ describe('test for components', function () {
         it('logo', () => {
             expect(
                 instance.$el.querySelector('nav.nav > .nav-left > a.nav-item')
-                .textContent).to.equals('Monosys')
+                    .textContent).to.equals('Monosys')
         })
     })
     describe('login', function () {
@@ -88,7 +88,7 @@ describe('test for components', function () {
         it('logo', function () {
             expect(
                 instance.$el.querySelector('nav.nav > .nav-left > a.nav-item')
-                .textContent).to.equals('Monosys')
+                    .textContent).to.equals('Monosys')
         })
     })
     describe('ThingTable', function () {
@@ -113,7 +113,7 @@ describe('test for components', function () {
                 expect(ThingForm.methods.checkIsbn('9784774166345')).to.be.false
             })
             it('Quagga', function () {
-                
+
             })
         })
     })

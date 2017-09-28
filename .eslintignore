@@ -1,3 +1,8 @@
 dist/*
 package.json
-coverage/*
+coverage/
+test/unit/coverage/
+test/e2e/
+build/
+config/
+
