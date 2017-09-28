@@ -86,11 +86,7 @@ export default {
             // Edit
             query.isbn = this.removeHyphen(query.isbn)
             if (!query.tags.includes('book') && !!query.isbn) {
-                if (query.tags) {
                     query.tags.push('book')
-                } else {
-                    query.tags[0] = 'book'
-                }
             }
 
             // Check
@@ -122,7 +118,7 @@ export default {
             }
         },
         scannerModal () {
-            this.$modal.open({
+            return this.$modal.open({
                 component: BarcodeScanner,
                 props: {
                     callback: (code) => {

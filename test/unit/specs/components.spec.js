@@ -3,6 +3,7 @@ import thing from '@/pages/thing.vue'
 import login from '@/pages/login.vue'
 import ThingTable from '@/components/ThingTable.vue'
 import ThingForm from '@/components/ThingForm.vue'
+import UserNavItem from '@/components/UserNavItem.vue'
 import store from '@/store/'
 import router from '@/router'
 import { testThings } from './helper'
@@ -30,8 +31,8 @@ describe('test for components', function () {
     const mock = new MockAdapter(axios)
     mock.onGet('/loggedin').reply(200, '')
     mock.onGet('/api/v1/thing').reply(200, testThings)
-    mock.onPost('/api/v1/thing').reply(200, '')
-    mock.onPut(/\/api\/v1\/thing\/.+/).reply(200, '')
+    mock.onPost('/api/v1/thing').reply(200, 'null')
+    mock.onPut(/\/api\/v1\/thing\/.+/).reply(200, 'null')
     mock.onGet('https://www.googleapis.com/books/v1/volumes/?q=isbn:9784774166346')
         .reply(200, JSON.stringify(googleIsbn))
 
@@ -94,13 +95,10 @@ describe('test for components', function () {
                 expect(ThingTable.methods.dateFormat(undefined)).to.equals('')
                 expect(ThingTable.methods.dateFormat('')).to.equals('')
             })
-            it('editModal', function (done) {
+            it('editModal', function () {
                 const instance = getInstance(ThingTable, { data: testThings })
-                instance.$modal.open = ({ props }) => {
-                    expect(props.title).to.equal('編集')
-                    done()
-                }
                 instance.$el.getElementsByClassName('edit-button')[0].click()
+                expect(instance.$el.querySelectorAll('.modal-card').length).not.to.be.zero
             })
             it('dateSort', function () {
                 expect(ThingTable.methods.dateSort(undefined, undefined)).to.equals(-1)
@@ -157,27 +155,44 @@ describe('test for components', function () {
             describe('send', function () {
                 it('if data has error', function () {
                     const instance = getInstance(ThingForm, {
-                        thing: { ...testThings[0], name: '' }})
+                        thing: { ...testThings[0], name: '', isbn: '9784774166346' }})
                     expect(instance.send()).to.be.false
                 })
 
                 it('if instance is normal', function (done) {
                     const instance = getInstance(ThingForm, { thing: testThings[0] })
-                    const spy = sinon.spy(axios, 'put')
+                    const stub = sinon.stub(axios, 'put')
+                    stub.withArgs('/api/v1/thing/' + testThings[0]._id)
+                        .returns(Promise.resolve({ data: '' }))
                     instance.send().then(toast => {
-                        expect(spy.called).to.be.ok
+                        expect(toast.message).to.equal('送信しました')
                         done()
                     })
+                    axios.put.restore()
                 })
 
-                it('if instance is new(has no mongo\'s "_id")', function (done) {
+                it('if instance is new (has no mongo\'s "_id")', function (done) {
                     const instance = getInstance(ThingForm, {
-                        thing: { ...testThings[0], _id: '' }})
-                    const spy = sinon.spy(axios, 'post')
+                        thing: { ...testThings[0], _id: '', isbn: '9784774166346' }})
+                    const stub = sinon.stub(axios, 'post')
+                    stub.withArgs('/api/v1/thing').returns(Promise.resolve({ data: '' }))
                     instance.send().then(toast => {
-                        expect(spy.called).to.be.ok
+                        expect(toast.message).to.equal('送信しました')
                         done()
                     })
+                    axios.post.restore()
+                })
+
+                it('if offline', function (done) {
+                    const instance = getInstance(ThingForm, {
+                        thing: { ...testThings[0], _id: '' }})
+                    const stub = sinon.stub(axios, 'post')
+                    stub.withArgs('/api/v1/thing').returns(Promise.reject(new Error()))
+                    instance.send().then(toast => {
+                        expect(toast.message).to.equal('送信に失敗')
+                        done()
+                    })
+                    axios.post.restore()
                 })
             })
             describe('searchIsbn', function () {
@@ -188,15 +203,33 @@ describe('test for components', function () {
                 })
                 it('isbn', function () {
                     const instance = getInstance(ThingForm, {
-                        thing: { ...testThings[0], isbn: '' }})
+                        thing: { ...testThings[0], isbn: '9784774166346' }})
                     const axiosInstance = axios.create({})
                     axiosInstance.get = () => Promise.resolve({ data: googleIsbn })
-                    instance.searchIsbn(9784774166346, axiosInstance).then(() => {
-                        console.log(instance.thing)
+                    instance.searchIsbn(undefined, axiosInstance).then(() => {
                         expect(instance.thing.name).to.equal('')
                     })
                 })
             })
+
+            it('scannerModal', function () {
+                const instance = getInstance(ThingForm, {
+                    thing: { ...testThings[0], isbn: '' }})
+                instance.scannerModal().props.callback('9784774166346')
+                expect(instance.thing.isbn).to.equal('9784774166346')
+            })
+        })
+    })
+    describe('UserNavItem', function () {
+        it('username', function () {
+            const instance = getInstance(UserNavItem)
+            expect(instance.username).to.equal(store.state.username)
+        })
+        it('logout', function () {
+            const instance = getInstance(UserNavItem)
+            const spy = sinon.spy(instance.$store, 'dispatch')
+            instance.logout()
+            expect(spy.calledOnce).to.be.ok
         })
     })
 })
