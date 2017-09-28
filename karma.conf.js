@@ -9,7 +9,6 @@ module.exports = function (config) {
             'karma-mocha',
             'karma-chai',
             'karma-coverage',
-            'karma-coveralls',
             'karma-sourcemap-loader',
             'karma-spec-reporter',
             'karma-webpack'
@@ -34,7 +33,7 @@ module.exports = function (config) {
             reporters: [
                 { type: 'text' },
                 { type: 'html' },
-                { type: 'lcov' }
+                { type: 'lcov', subdir: '.' }
             ]
         },
 

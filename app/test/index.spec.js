@@ -112,6 +112,9 @@ describe('test for components', function () {
                 expect(ThingForm.methods.checkIsbn('9784774166346')).to.be.true
                 expect(ThingForm.methods.checkIsbn('9784774166345')).to.be.false
             })
+            it('Quagga', function () {
+                
+            })
         })
     })
 })
