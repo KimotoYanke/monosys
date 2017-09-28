@@ -1,3 +1,4 @@
+import index from '../src/pages/index.vue'
 import thing from '../src/pages/thing.vue'
 import login from '../src/pages/login.vue'
 import ThingTable from '../src/components/ThingTable.vue'
@@ -40,13 +41,29 @@ describe('test for components', function () {
             '__v': 0
         }
     ])
+    describe('index', function () {
+        const instance = getInstance(index)
+        it('data', () => {
+            expect(thing.data).to.be.a('Function')
+        })
+        it('components', () => {
+            expect(thing.components).to.have.any.keys('thing-table')
+        })
+        it('computed', () => {
+            expect(thing.computed).to.have.any.keys('things')
+        })
+        it('logo', () => {
+            expect(
+                instance.$el.querySelector('nav.nav > .nav-left > a.nav-item')
+                .textContent).to.equals('Monosys')
+        })
+    })
     describe('thing', function () {
         const instance = getInstance(thing)
         it('data', () => {
             expect(thing.data).to.be.a('Function')
         })
         it('components', () => {
-            console.log(thing)
             expect(thing.components).to.have.any.keys('thing-table')
         })
         it('computed', () => {

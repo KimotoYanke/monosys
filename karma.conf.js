@@ -10,11 +10,9 @@ module.exports = function (config) {
             'karma-chai',
             'karma-coverage',
             'karma-coveralls',
-            'karma-mocha-reporter',
             'karma-sourcemap-loader',
             'karma-spec-reporter',
-            'karma-webpack',
-            'karma-remap-istanbul'
+            'karma-webpack'
         ],
 
         files: [
@@ -29,13 +27,14 @@ module.exports = function (config) {
             'app/test/*.spec.js': ['webpack', 'sourcemap']
         },
 
-        reporters: ['spec', 'coverage', 'coveralls'],
+        reporters: ['spec', 'coverage'],
 
         coverageReporter: {
             dir: './coverage',
             reporters: [
-                { type: 'lcov' },
-                { type: 'text' }
+                { type: 'text' },
+                { type: 'html' },
+                { type: 'lcov' }
             ]
         },
 
@@ -43,14 +42,13 @@ module.exports = function (config) {
 
         colors: true,
 
-        logLevel: config.LOG_INFO,
+        singleRun: true,
 
-        autoWatch: false,
+        logLevel: config.LOG_INFO,
 
         browsers: ['PhantomJS'],
 
         mime: {
-            'text/x-typescript': ['ts', 'tsx'],
             'text/javascript': ['js']
         },
 
