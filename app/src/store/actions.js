@@ -11,17 +11,17 @@ export function fetch ({ commit }, query) {
     })
 }
 
-export function login ({ store }, query) {
+export function login ({ dispatch }, query) {
     axios.post('/user/login', query)
         .then(responce => {
-            store.dispatch('checkLoggedIn')
+            dispatch('checkLoggedIn')
         })
 }
 
-export function register ({ store }, query) {
+export function register ({ dispatch }, query) {
     axios.post('/user/register', query)
         .then(responce => {
-            store.dispatch('checkLoggedIn')
+            dispatch('checkLoggedIn')
         })
 }
 
@@ -33,8 +33,8 @@ export function checkLoggedIn ({ commit }) {
     })
 }
 
-export function logout ({ store }) {
+export function logout ({ dispatch }) {
     axios.get('/user/logout').then(responce => {
-        store.dispatch('checkLoggedIn')
+        dispatch('checkLoggedIn')
     })
 }

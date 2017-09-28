@@ -25,9 +25,10 @@ describe('Store', function () {
             '__v': 0
         }
     ])
-    mock.onPost('/user/login').reply(200, '')
-    mock.onGet('/user/logout').reply(200, '')
-    mock.onPost('/user/register').reply(200, '')
+    mock.onPost('/user/login').reply(200, 'a_user')
+    mock.onGet('/user/logout').reply(200, 'a_user')
+    mock.onPost('/user/register').reply(200, 'a_user')
+    process.on('unhandledRejection', console.dir)
 
     describe('Mutations', function () {
         it('fetch', function () {
@@ -51,25 +52,25 @@ describe('Store', function () {
             actions.fetch({ commit }, {})
         })
         it('login', function (done) {
-            const store = {}
-            store.dispatch = (actionType) => {
+            const dispatch = actionType => {
                 expect(actionType).to.equal('checkLoggedIn')
+                done()
             }
-            actions.login({ store }, {})
+            actions.login({ dispatch }, {})
         })
         it('logout', function (done) {
-            const store = {}
-            store.dispatch = (actionType) => {
+            const dispatch = actionType => {
                 expect(actionType).to.equal('checkLoggedIn')
+                done()
             }
-            actions.logout({ store }, {})
+            actions.logout({ dispatch }, {})
         })
         it('register', function (done) {
-            const store = {}
-            store.dispatch = (actionType) => {
+            const dispatch = actionType => {
                 expect(actionType).to.equal('checkLoggedIn')
+                done()
             }
-            actions.register({ store }, {})
+            actions.register({ dispatch }, {})
         })
         it('checkLoggedIn', function (done) {
             const commit = (type, { username }) => {

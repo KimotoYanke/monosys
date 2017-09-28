@@ -17,6 +17,21 @@ function getInstance (Component, propsData) {
     const vm = new Ctor({ propsData, store, router }).$mount()
     return vm
 }
+const testThings = Object.freeze([
+    {
+        '_id': '59cb51d09c6a8b0f46664f14',
+        'name': 'ab',
+        'isbn': '',
+        'rfid': '00001',
+        'where': 'procon-a',
+        'budget_frame': 'skull',
+        'comment': '',
+        'whose': '',
+        'tags': [],
+        'date': '2017-09-27T07:22:56.992Z',
+        '__v': 0
+    }
+])
 
 describe('test for components', function () {
     Vue.use(Vuex)
@@ -26,21 +41,7 @@ describe('test for components', function () {
     })
     const mock = new MockAdapter(axios)
     mock.onGet('/loggedin').reply(200, '')
-    mock.onGet('/api/v1/thing').reply(200, [
-        {
-            '_id': '59cb51d09c6a8b0f46664f14',
-            'name': 'ab',
-            'isbn': '',
-            'rfid': '00001',
-            'where': 'procon-a',
-            'budget_frame': 'skull',
-            'comment': '',
-            'whose': '',
-            'tags': [],
-            'date': '2017-09-27T07:22:56.992Z',
-            '__v': 0
-        }
-    ])
+    mock.onGet('/api/v1/thing').reply(200, testThings)
     describe('index', function () {
         const instance = getInstance(index)
         it('data', () => {
@@ -98,6 +99,15 @@ describe('test for components', function () {
         it('methods', function () {
             expect(ThingTable.methods.dateFormat(undefined)).to.equals('')
             expect(ThingTable.methods.dateFormat('')).to.equals('')
+        })
+        it('editModal', function (done) {
+            const instance = getInstance(ThingTable, { data: testThings })
+            instance.$modal.open = ({ props }) => {
+                expect(props.title).to.equal('編集')
+                done()
+            }
+            console.log(instance.$el.getElementsByClassName('edit-button'))
+            instance.$el.getElementsByClassName('edit-button')[0].click()
         })
     })
     describe('ThingForm', function () {
