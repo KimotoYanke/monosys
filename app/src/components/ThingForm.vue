@@ -94,24 +94,7 @@ export default {
             }
 
             // Check
-            const err = (() => {
-                if (!query.name) {
-                    return 'no-name'
-                }
-                if (!query.isbn && !query.rfid) {
-                    return 'no-ids'
-                }
-                if (!this.checkIsbn(query.isbn) && !query.rfid) {
-                    return 'wrong-isbn'
-                }
-                if (!query['budget_frame']) {
-                    return 'no-budget-frame'
-                }
-                if (!query.where) {
-                    return 'no-where'
-                }
-                return ''
-            })()
+            const err = this.error
             if (err) {
                 this.$toast.open({
                     message: POST_ERRS[err],
@@ -120,23 +103,21 @@ export default {
                 })
                 return false
             } else {
-                (this.thing._id
+                return (this.thing._id
                     ? () => axios.put('/api/v1/thing/' + this.thing._id, JSON.stringify(query))
                     : () => axios.post('/api/v1/thing', JSON.stringify(query))
                 )().then(responce => {
-                    this.$toast.open({
+                    return this.$toast.open({
                         message: '送信しました',
                         position: 'is-bottom',
                         type: 'is-success'
                     })
-                    return false
                 }).catch(e => {
-                    this.$toast.open({
+                    return this.$toast.open({
                         message: '送信に失敗',
                         position: 'is-bottom',
                         type: 'is-danger'
                     })
-                    return false
                 })
             }
         },
@@ -150,7 +131,7 @@ export default {
                 }
             })
         },
-        searchIsbn (isbn) {
+        searchIsbn (isbn, axiosInstance) {
             if (!isbn) {
                 if (!this.thing.isbn) {
                     this.$toast.open({
@@ -162,8 +143,8 @@ export default {
                 }
                 isbn = this.thing.isbn
             }
-            const instance = axios.create({})
-            instance.get('https://www.googleapis.com/books/v1/volumes/?q=isbn:' + isbn)
+            const instance = axiosInstance || axios.create({})
+            return instance.get('https://www.googleapis.com/books/v1/volumes/?q=isbn:' + isbn)
                 .then(data => {
                     if (data.data.totalItems) {
                         this.thing.name = data.data.items[0].volumeInfo.title
@@ -174,6 +155,25 @@ export default {
     computed: {
         isSafeIsbn () {
             return this.checkIsbn(this.thing.isbn) || !!this.thing.rfid
+        },
+        error () {
+            const query = this.thing
+            if (!query.name) {
+                return 'no-name'
+            }
+            if (!query.isbn && !query.rfid) {
+                return 'no-ids'
+            }
+            if (!this.checkIsbn(query.isbn) && !query.rfid) {
+                return 'wrong-isbn'
+            }
+            if (!query['budget_frame']) {
+                return 'no-budget-frame'
+            }
+            if (!query.where) {
+                return 'no-where'
+            }
+            return ''
         }
     },
     mounted () {
