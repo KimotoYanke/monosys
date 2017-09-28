@@ -8,7 +8,7 @@
     "build:watch": "npm run build -- --watch",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
-    "unit:watch": "npm run test -- --auto-watch",
+    "unit:watch": "npm run unit -- --auto-watch",
     "eslint": "esw --ext .js --ext .vue --ext .json app/ src/ .",
     "eslint:watch": "npm run eslint -- -w --fix --quiet",
     "eslint:fix": "npm run eslint -- --fix",
