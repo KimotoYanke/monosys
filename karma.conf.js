@@ -9,6 +9,7 @@ module.exports = function (config) {
             'karma-mocha',
             'karma-chai',
             'karma-coverage',
+            'karma-remap-coverage',
             'karma-sourcemap-loader',
             'karma-spec-reporter',
             'karma-webpack'
@@ -16,6 +17,8 @@ module.exports = function (config) {
 
         files: [
             './node_modules/babel-polyfill/dist/polyfill.min.js',
+            './app/**/*.js',
+            './app/**/*.vue',
             './app/test/index.spec.js'
         ],
 
@@ -23,18 +26,24 @@ module.exports = function (config) {
         ],
 
         preprocessors: {
+            'app/**/*': ['webpack', 'sourcemap'],
             'app/test/*.spec.js': ['webpack', 'sourcemap']
         },
 
-        reporters: ['spec', 'coverage'],
+        reporters: ['spec', 'coverage', 'remap-coverage'],
 
         coverageReporter: {
-            dir: './coverage',
-            reporters: [
-                { type: 'text' },
-                { type: 'html' },
-                { type: 'lcov', subdir: '.' }
-            ]
+            type: 'in-memory'
+            // dir: './coverage',
+            // reporters: [
+            //     { type: 'text' },
+            //     { type: 'html' },
+            //     { type: 'lcov', subdir: '.' }
+            // ]
+        },
+
+        remapCoverageReporter: {
+            lcov: './coverage/lcov.info'
         },
 
         port: 9876,
@@ -76,7 +85,7 @@ module.exports = function (config) {
                 },
                 extensions: ['.js', '.vue', '.json']
             },
-            devtool: 'cheap-module-source-map'
+            devtool: 'inline-source-map'
         }
     })
 }
