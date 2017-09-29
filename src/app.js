@@ -21,7 +21,8 @@ const router = express.Router()
 
 // the promise of Mongoose is the native Promise
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost:27017/database').then(() => {
+mongoose.connect('mongodb://localhost:27017/database', {
+    useMongoClient: true }).then(() => {
     console.log('I\'m Running.')
 })
 
