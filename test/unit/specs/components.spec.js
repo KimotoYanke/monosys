@@ -1,6 +1,3 @@
-import index from '@/pages/index.vue'
-import thing from '@/pages/thing.vue'
-import login from '@/pages/login.vue'
 import ThingTable from '@/components/ThingTable.vue'
 import ThingForm from '@/components/ThingForm.vue'
 import UserNavItem from '@/components/UserNavItem.vue'
@@ -39,56 +36,6 @@ describe('test for components', function () {
     mock.onGet('https://www.googleapis.com/books/v1/volumes/?q=isbn:9784774166346')
         .reply(200, JSON.stringify(googleIsbn))
 
-    describe('index', function () {
-        const instance = getInstance(index)
-        it('data', () => {
-            expect(thing.data).to.be.a('Function')
-        })
-        it('components', () => {
-            expect(thing.components).to.have.any.keys('thing-table')
-        })
-        it('computed', () => {
-            expect(thing.computed).to.have.any.keys('things')
-        })
-        it('logo', () => {
-            expect(
-                instance.$el.querySelector('nav.nav > .nav-left > a.nav-item')
-                    .textContent).to.equals('Monosys')
-        })
-    })
-    describe('thing', function () {
-        const instance = getInstance(thing)
-        it('data', () => {
-            expect(thing.data).to.be.a('Function')
-        })
-        it('components', () => {
-            expect(thing.components).to.have.any.keys('thing-table')
-        })
-        it('computed', () => {
-            expect(thing.computed).to.have.any.keys('things')
-        })
-        it('logo', () => {
-            expect(
-                instance.$el.querySelector('nav.nav > .nav-left > a.nav-item')
-                    .textContent).to.equals('Monosys')
-        })
-    })
-    describe('login', function () {
-        const instance = getInstance(login)
-        it('data', function () {
-            expect(login.data).to.be.a('Function')
-        })
-        it('components', function () {
-            expect(login.components).to.have.any.keys('nav-bar')
-        })
-        it('methods', function () {
-        })
-        it('logo', function () {
-            expect(
-                instance.$el.querySelector('nav.nav > .nav-left > a.nav-item')
-                    .textContent).to.equals('Monosys')
-        })
-    })
     describe('ThingTable', function () {
         it('data', function () {
             expect(ThingTable.data).to.be.a('Function')
@@ -103,6 +50,7 @@ describe('test for components', function () {
                 const spy = sinon.spy(instance.$modal, 'open')
                 instance.$el.getElementsByClassName('edit-button')[0].click()
                 expect(spy.called).to.be.ok
+                spy.restore()
             })
             it('dateSort', function () {
                 expect(ThingTable.methods.dateSort(undefined, undefined)).to.equals(-1)
@@ -258,6 +206,7 @@ describe('test for components', function () {
             const spy = sinon.spy(instance.$store, 'dispatch')
             instance.logout()
             expect(spy.calledOnce).to.be.ok
+            spy.restore()
         })
     })
     describe('BarcodeScanner', function () {

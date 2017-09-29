@@ -37,7 +37,7 @@ describe('Store', function () {
             }
             actions.fetch({ commit }, {})
         })
-        it('login', function (done) {
+        it('login', function () {
             const dispatch = actionType => {
                 expect(actionType).to.equal('checkLoggedIn')
                 done()

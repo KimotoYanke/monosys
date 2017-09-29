@@ -11,5 +11,18 @@ export const testThings = Object.freeze([
         'tags': [],
         'date': '2017-09-27T07:22:56.992Z',
         '__v': 0
+    },
+    {
+        '_id': '5555aa55a55a5a55a5a5a5a5',
+        'name': 'a book',
+        'isbn': '9784774166346',
+        'rfid': '',
+        'where': 'procon-a',
+        'budget_frame': 'skull',
+        'comment': '',
+        'whose': '',
+        'tags': ['book'],
+        'date': '2017-09-27T07:22:56.992Z',
+        '__v': 0
     }
 ])
