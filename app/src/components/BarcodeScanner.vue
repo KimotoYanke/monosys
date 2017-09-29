@@ -7,14 +7,18 @@ import Quagga from 'quagga'
 import checkIsbn from '../check-isbn'
 export default {
     props: {
-        callback: Function
+        callback: {
+            type: Function,
+            required: true
+        },
+        lastResult: {
+            type: String,
+            default: ''
+        }
     },
     data () {
         return {
-            latestResult: ''
         }
-    },
-    methods: {
     },
     computed: {
     },
@@ -28,7 +32,7 @@ export default {
             decoder: {
                 readers: ['ean_reader']
             }
-        }, (err) => {
+        }, err => {
             if (err) {
                 this.$toast.open({
                     message: err.name,
@@ -39,24 +43,7 @@ export default {
             }
             Quagga.start()
         })
-        Quagga.onDetected((result) => {
-            const code = result.codeResult.code
-
-            if (this.lastResult !== code) {
-                Promise.resolve().then(() => this.$toast.open({
-                    message: code,
-                    position: 'is-bottom',
-                    duration: 100
-                }))
-                this.lastResult = code
-                if (/97[89].{10}/.test(String(code))) {
-                    if (checkIsbn(code)) {
-                        this.callback(code)
-                        this.$emit('close')
-                    }
-                }
-            }
-        })
+        Quagga.onDetected(this.onDetected)
         /*
         Quagga.onProcessed((result) => {
             const drawingCtx = Quagga.canvas.ctx.overlay
@@ -85,6 +72,26 @@ export default {
     },
     beforeDestroy () {
         Quagga.stop()
+    },
+    methods: {
+        onDetected (result) {
+            const code = result.codeResult.code
+
+            if (this.lastResult !== code) {
+                Promise.resolve().then(() => this.$toast.open({
+                    message: code,
+                    position: 'is-bottom',
+                    duration: 100
+                }))
+                this.lastResult = code
+                if (/97[89].{10}/.test(String(code))) {
+                    if (checkIsbn(code)) {
+                        this.callback(code)
+                        this.$emit('close')
+                    }
+                }
+            }
+        }
     },
     components: {
     }

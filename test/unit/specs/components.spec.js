@@ -4,12 +4,15 @@ import login from '@/pages/login.vue'
 import ThingTable from '@/components/ThingTable.vue'
 import ThingForm from '@/components/ThingForm.vue'
 import UserNavItem from '@/components/UserNavItem.vue'
+import BInputTag from '@/components/BInputTag.vue'
+import BarcodeScanner from '@/components/BarcodeScanner.vue'
 import store from '@/store/'
 import router from '@/router'
 import { testThings } from './helper'
 import googleIsbn from './google-isbn.json'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import Quagga from 'quagga'
 import axios from 'axios'
 import sinon from 'sinon'
 import Buefy from 'buefy'
@@ -97,8 +100,9 @@ describe('test for components', function () {
             })
             it('editModal', function () {
                 const instance = getInstance(ThingTable, { data: testThings })
+                const spy = sinon.spy(instance.$modal, 'open')
                 instance.$el.getElementsByClassName('edit-button')[0].click()
-                expect(instance.$el.querySelectorAll('.modal-card').length).not.to.be.zero
+                expect(spy.called).to.be.ok
             })
             it('dateSort', function () {
                 expect(ThingTable.methods.dateSort(undefined, undefined)).to.equals(-1)
@@ -108,6 +112,30 @@ describe('test for components', function () {
                 const start = new Date(2000, 1, 1, 0, 0, 0, 0).getTime()
                 const end = new Date(2000, 1, 1, 0, 0, 1, 0).getTime()
                 expect(ThingTable.methods.dateSort(end, start)).to.equals(1000)
+            })
+        })
+    })
+    describe('BInputTag', function () {
+        it('data', function () {
+            expect(BInputTag.data).to.be.a('Function')
+            expect(BInputTag.data()).to.have.any.keys('text', 'focused')
+        })
+        describe('methods', function () {
+            it('blur', function () {
+                const instance = getInstance(BInputTag, { tags: [] })
+                instance.focused = true
+                instance.text = 'lorem ipsum dolor sit amet'
+
+                instance.blur()
+                expect(instance.tags.length).to.equal(5)
+                expect(instance.focused).to.be.false
+            })
+            it('focus', function () {
+                const instance = getInstance(BInputTag, { tags: ['lorem', 'ipsum', 'dolor', 'sit', 'amet'] })
+                instance.focused = false
+                instance.focus()
+                expect(instance.text).to.equal('lorem ipsum dolor sit amet')
+                expect(instance.focused).to.be.true
             })
         })
     })
@@ -207,7 +235,7 @@ describe('test for components', function () {
                     const axiosInstance = axios.create({})
                     axiosInstance.get = () => Promise.resolve({ data: googleIsbn })
                     instance.searchIsbn(undefined, axiosInstance).then(() => {
-                        expect(instance.thing.name).to.equal('')
+                        expect(instance.thing.name).to.equal('Vim scriptテクニックバイブル')
                     })
                 })
             })
@@ -230,6 +258,47 @@ describe('test for components', function () {
             const spy = sinon.spy(instance.$store, 'dispatch')
             instance.logout()
             expect(spy.calledOnce).to.be.ok
+        })
+    })
+    describe('BarcodeScanner', function () {
+        it('data', function () {
+            expect(BarcodeScanner.data).to.be.a('Function')
+            expect(BarcodeScanner.data()).to.be.empty
+        })
+        it('mount', function () {
+            sinon.stub(Quagga, 'init').callsArgWith(1, undefined)
+            sinon.spy(Quagga, 'start')
+
+            getInstance(
+                BarcodeScanner)
+            expect(Quagga.start.calledOnce).to.be.ok
+
+            Quagga.init.restore()
+            Quagga.start.restore()
+        })
+        it('mount error', function () {
+            sinon.stub(Quagga, 'init').callsArgWith(1, new Error())
+            sinon.stub(Quagga, 'onDetected')
+            sinon.spy(Quagga, 'start')
+
+            getInstance(BarcodeScanner)
+
+            expect(Quagga.start.calledOnce).not.to.be.ok
+
+            Quagga.init.restore()
+            Quagga.onDetected.restore()
+            Quagga.start.restore()
+        })
+        it('onDetected on duplication', function () {
+            const instance = getInstance(BarcodeScanner, { lastResult: '', callback: code => expect(code).to.equal('9784774166346') })
+            instance.onDetected({
+                codeResult: { code: '9784774166346' }})
+            expect(instance.lastResult).to.equal('9784774166346')
+        })
+        it('beforeDestroy', function () {
+            sinon.spy(Quagga, 'stop')
+            BarcodeScanner.beforeDestroy()
+            expect(Quagga.stop.calledOnce).to.be.ok
         })
     })
 })

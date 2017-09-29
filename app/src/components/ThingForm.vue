@@ -86,7 +86,7 @@ export default {
             // Edit
             query.isbn = this.removeHyphen(query.isbn)
             if (!query.tags.includes('book') && !!query.isbn) {
-                    query.tags.push('book')
+                query.tags.push('book')
             }
 
             // Check
