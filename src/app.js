@@ -20,9 +20,11 @@ import User from './models/user'
 const app = express()
 const router = express.Router()
 
+const mongoHost = process.env.MONGO_HOST || 'localhost'
+
 // the promise of Mongoose is the native Promise
 mongoose.Promise = global.Promise
-mongoose.connect('mongodb://localhost:27017/database', {
+mongoose.connect(`mongodb://${mongoHost}:27017/database`, {
     useMongoClient: true }).then(() => {
     console.log('I\'m Running.')
 })
