@@ -1,4 +1,5 @@
 /*eslint no-console:0*/
+import fs from 'fs'
 import express from 'express'
 import expressSession from 'express-session'
 import path from 'path'
@@ -32,7 +33,12 @@ app.set('view engine', 'pug')
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'))
+if (app.get('env') === 'production') {
+    const stream = fs.createWriteStream(path.join(__dirname, 'express.log'), { flags: 'a' })
+    app.use(logger({ stream: stream }))
+} else {
+    app.use(logger('dev'))
+}
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
