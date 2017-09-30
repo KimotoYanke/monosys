@@ -21,6 +21,7 @@ const app = express()
 const router = express.Router()
 
 const mongoHost = process.env.MONGO_HOST || 'localhost'
+console.log(mongoHost)
 
 // the promise of Mongoose is the native Promise
 mongoose.Promise = global.Promise
