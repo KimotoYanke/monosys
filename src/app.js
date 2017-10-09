@@ -7,7 +7,6 @@ import logger from 'morgan'
 import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
-import sassMiddleware from 'node-sass-middleware'
 import restify from 'express-restify-mongoose'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
@@ -45,12 +44,6 @@ if (app.get('env') === 'production') {
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(sassMiddleware({
-    src: path.join(__dirname, '..', 'public'),
-    dest: path.join(__dirname, '..', 'public'),
-    indentedSyntax: true, // true = .sass and false = .scss
-    sourceMap: true
-}))
 app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use(express.static(path.join(__dirname, '..', 'dist')))
 app.use(expressSession({
