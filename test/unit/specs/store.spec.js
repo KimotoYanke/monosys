@@ -1,5 +1,6 @@
 import * as actions from '@/store/actions'
 import mutations from '@/store/mutations'
+import getters from '@/store/getters'
 import types from '@/store/mutations-type.json'
 import { testThings } from './helper'
 import Vue from 'vue'
@@ -69,5 +70,9 @@ describe('Store', function () {
     })
 
     describe('Getters', function () {
+        it('isLogined', function () {
+            expect(getters.isLogined({ username: '' })).to.be.false
+            expect(getters.isLogined({ username: 'username' })).to.be.true
+        })
     })
 })

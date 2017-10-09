@@ -33,9 +33,9 @@ export default {
         }
     },
     computed: {
-        ...mapState({
-            things: state => state.things
-        })
+        ...mapState([
+            'things'
+        ])
     },
     mounted () {
         this.$store.dispatch('fetch', {})

@@ -8,6 +8,10 @@ export function fetch ({ commit }, query) {
         commit(types.fetch, {
             things: responce.data
         })
+    }).catch(() => {
+        commit(types.fetch, {
+            things: {}
+        })
     })
 }
 

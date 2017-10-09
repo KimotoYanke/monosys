@@ -60,11 +60,19 @@ restify.defaults({
         res.status(statusCode).json({
             message: err.message
         })
-        console.log(req)
     }
-
 })
-restify.serve(router, Thing)
+
+restify.serve(router, Thing, {
+    preMiddleware: (req, res, next) => {
+        if (req.isAuthenticated()) {
+            next()
+        } else {
+            res.status(403).end()
+        }
+    }
+})
+
 router.use(index)
 app.use(router)
 

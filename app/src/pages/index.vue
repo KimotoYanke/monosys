@@ -1,7 +1,7 @@
 <template lang="pug">
 div
 	nav-bar
-		router-link.nav-item(to='thing' slot='left') Thing
+		router-link.nav-item(to='thing' slot='left' v-if='isLogined') Thing
 		user-nav-item(slot='right')
 	section.hero.is-sky.is-small
 		.hero-body.is-sky-and-earth
@@ -12,7 +12,7 @@ div
 <script>
 import NavBar from '../components/NavBar.vue'
 import UserNavItem from '../components/UserNavItem.vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
     data () {
@@ -21,7 +21,10 @@ export default {
     },
     computed: {
         ...mapState({
-        })
+        }),
+        ...mapGetters([
+            'isLogined'
+        ])
     },
     mounted () {
     },
