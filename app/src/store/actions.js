@@ -42,3 +42,4 @@ export function logout ({ dispatch }) {
         dispatch('checkLoggedIn')
     })
 }
+

@@ -2,7 +2,7 @@ import Mongoose from 'mongoose'
 import passportLocalMongoose from 'passport-local-mongoose'
 
 const Schema = Mongoose.Schema
-const ObjectId = Schema.ObjectId
+const ObjectId = Schema.Types.ObjectId
 
 const User = new Schema({
     'username': String,

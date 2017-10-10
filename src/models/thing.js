@@ -1,6 +1,9 @@
 import Mongoose from 'mongoose'
 
-export default Mongoose.model('thing', new Mongoose.Schema({
+const Schema = Mongoose.Schema
+const ObjectId = Schema.ObjectId
+
+export default Mongoose.model('thing', new Schema({
     'name': { type: String, required: true },
     'rfid': { type: String },
     'isbn': { type: String },
@@ -8,7 +11,7 @@ export default Mongoose.model('thing', new Mongoose.Schema({
     'where': { type: String, required: true },
     'whose': { type: String },
     'date': { type: Date, required: true, default: Date.now },
-    'loan': { type: Mongoose.Schema.Types.ObjectId },
+    'loan': { type: ObjectId, ref: 'loan' },
     'tags': { type: [String] },
     'comment': { type: String }
 }))
