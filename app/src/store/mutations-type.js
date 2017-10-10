@@ -1,11 +1,6 @@
-import thingTypes from './thing/mutations-type.json'
-import userTypes from './user/mutations-type.json'
-
-function addHeader (types, header) {
-    return types.map(mn => header + '/' + mn)
-}
+import thing from './thing/mutations-type.json'
+import user from './user/mutations-type.json'
 
 export default {
-    ...addHeader(thingTypes, 'thing'),
-    ...addHeader(userTypes, 'user')
+    thing, user
 }

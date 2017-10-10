@@ -1,4 +1,4 @@
-import * as actions from '@/store/actions'
+import * as actions from '@/store/thing/actions'
 import mutations from '@/store/mutations'
 import * as getters from '@/store/getters'
 import types from '@/store/mutations-type'
@@ -21,11 +21,11 @@ describe('Store', function () {
         it('fetch', function () {
             const state = {}
             const things = { '_id': 'aaa' }
-            mutations[types.fetch](state, { things })
+            mutations[types.thing.fetch](state, { things })
         })
         it('setUsername', function () {
             const state = {}
-            mutations[types.setUsername](state, { username: 'username' })
+            mutations[types.user.setUsername](state, { username: 'username' })
             expect(state.username).to.equal('username')
         })
     })
@@ -33,10 +33,10 @@ describe('Store', function () {
     describe('Actions', function (done) {
         it('fetch', function () {
             const commit = (type, { things }) => {
-                expect(type).to.equal(types.fetch)
+                expect(type).to.equal(types.thing.fetch)
                 done()
             }
-            actions.fetch({ commit }, {})
+            thingActions.fetch({ commit }, {})
         })
         it('login', function () {
             const dispatch = actionType => {
