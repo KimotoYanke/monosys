@@ -22,9 +22,9 @@ export default {
     computed: {
         ...mapState({
         }),
-        ...mapGetters([
-            'isLogined'
-        ])
+        ...mapGetters({
+            isLogined: 'user/isLogined'
+        })
     },
     mounted () {
     },

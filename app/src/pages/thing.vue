@@ -33,12 +33,12 @@ export default {
         }
     },
     computed: {
-        ...mapState([
-            'things'
-        ])
+        ...mapState({
+            things: state => state.thing.things
+        })
     },
     mounted () {
-        this.$store.dispatch('fetch', {})
+        this.$store.dispatch('thing/fetch', {})
     },
     methods: {
         search () {

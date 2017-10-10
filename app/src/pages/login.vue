@@ -32,13 +32,13 @@ export default {
         login () {
             const username = this.username
             const password = this.password
-            this.$store.dispatch('login', { username, password })
+            this.$store.dispatch('user/login', { username, password })
             this.$router.push('index')
         },
         register () {
             const username = this.username
             const password = this.password
-            this.$store.dispatch('register', { username, password })
+            this.$store.dispatch('user/register', { username, password })
             this.$router.push('index')
         }
     },

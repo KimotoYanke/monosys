@@ -24,4 +24,4 @@ new Vue({
     store
 }).$mount('#app')
 
-store.dispatch('checkLoggedIn')
+store.dispatch('user/checkLoggedIn')

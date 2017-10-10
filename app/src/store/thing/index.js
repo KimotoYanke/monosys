@@ -7,10 +7,11 @@ import mutations from './mutations'
 Vue.use(Vuex)
 
 const state = {
-    things: [],
+    things: []
 }
 
 export default {
+    namespaced: true,
     state,
     getters,
     actions,
