@@ -1,7 +1,7 @@
 import * as actions from '@/store/actions'
 import mutations from '@/store/mutations'
 import * as getters from '@/store/getters'
-import types from '@/store/mutations-type.json'
+import types from '@/store/mutations-type'
 import { testThings } from './helper'
 import Vue from 'vue'
 import Vuex from 'vuex'
