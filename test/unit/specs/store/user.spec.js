@@ -1,14 +1,14 @@
-import * as actions from '@/store/thing/actions'
-import mutations from '@/store/mutations'
-import * as getters from '@/store/getters'
-import types from '@/store/mutations-type'
-import { testThings } from './helper'
+import * as actions from '@/store/user/actions'
+import mutations from '@/store/user/mutations'
+import * as getters from '@/store/user/getters'
+import types from '@/store/user/mutations-type'
+import { testThings } from '../helper'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 
-describe('Store', function () {
+describe('User Store', function () {
     Vue.use(Vuex)
     const mock = new MockAdapter(axios)
     mock.onGet('/user/loggedin').reply(200, 'a_user')
@@ -18,26 +18,14 @@ describe('Store', function () {
     mock.onPost('/user/register').reply(200, 'a_user')
 
     describe('Mutations', function () {
-        it('fetch', function () {
-            const state = {}
-            const things = { '_id': 'aaa' }
-            mutations[types.thing.fetch](state, { things })
-        })
         it('setUsername', function () {
             const state = {}
-            mutations[types.user.setUsername](state, { username: 'username' })
+            mutations[types.setUsername](state, { username: 'username' })
             expect(state.username).to.equal('username')
         })
     })
 
     describe('Actions', function (done) {
-        it('fetch', function () {
-            const commit = (type, { things }) => {
-                expect(type).to.equal(types.thing.fetch)
-                done()
-            }
-            thingActions.fetch({ commit }, {})
-        })
         it('login', function () {
             const dispatch = actionType => {
                 expect(actionType).to.equal('checkLoggedIn')

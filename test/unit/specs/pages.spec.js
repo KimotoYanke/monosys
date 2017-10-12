@@ -3,13 +3,8 @@ import thing from '@/pages/thing.vue'
 import login from '@/pages/login.vue'
 import store from '@/store/'
 import router from '@/router'
-import googleIsbn from './google-isbn.json'
+import './helper'
 import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
-import Buefy from 'buefy'
-import VueRouter from 'vue-router'
-import MockAdapter from 'axios-mock-adapter'
 
 function getInstance (Component, propsData) {
     const Ctor = Vue.extend(Component)
@@ -18,19 +13,6 @@ function getInstance (Component, propsData) {
 }
 
 describe('test for pages', function () {
-    Vue.use(Vuex)
-    Vue.use(VueRouter)
-    Vue.use(Buefy, {
-        defaultIconPack: 'fa'
-    })
-    const mock = new MockAdapter(axios)
-    mock.onGet('/loggedin').reply(200, '')
-    mock.onGet('/api/v1/thing').reply(200, '')
-    mock.onPost('/api/v1/thing').reply(200, 'null')
-    mock.onPut(/\/api\/v1\/thing\/.+/).reply(200, 'null')
-    mock.onGet('https://www.googleapis.com/books/v1/volumes/?q=isbn:9784774166346')
-        .reply(200, JSON.stringify(googleIsbn))
-
     describe('index', function () {
         const instance = getInstance(index)
         it('data', () => {
@@ -106,7 +88,7 @@ describe('test for pages', function () {
     describe('thing', function () {
         it('mounted', function () {
             getInstance(thing)
-            expect(store.state.things).to.be.exist
+            expect(store.state.thing.things).to.be.exist
         })
         describe('methods', function () {
             describe('search', function () {

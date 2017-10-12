@@ -71,7 +71,7 @@ export default {
                     }
                 })
             if (query) {
-                this.$store.dispatch('fetch', { query })
+                this.$store.dispatch('thing/fetch', { query })
             }
         },
         registerModal () {
