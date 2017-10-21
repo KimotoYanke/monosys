@@ -1,13 +1,13 @@
 <template lang="pug">
 	span.nav-item
 		span.nav-item
-			a.button.is-primary(v-if='!!username') {{ username }}
+			a.button.is-primary(v-if='isLogined') {{ username }}
 		span.nav-item
-			router-link.button(v-if='!username' to='login') Login
-			a.button(v-if='!!username' @click='logout') Logout
+			router-link.button(v-if='!isLogined' to='login') Login
+			a.button(v-if='isLogined' @click='logout') Logout
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
     data () {
@@ -16,7 +16,10 @@ export default {
     },
     computed: {
         ...mapState({
-            username: 'username'
+            username: state => state.user.username
+        }),
+        ...mapGetters({
+            isLogined: 'user/isLogined'
         })
     },
     mounted () {
