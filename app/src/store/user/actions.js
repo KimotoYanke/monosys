@@ -5,14 +5,14 @@ export function login ({ dispatch }, query) {
     return axios.post('/user/login', query)
         .then(responce => {
             dispatch('checkLoggedIn')
-        })
+        }).catch(() => {})
 }
 
 export function register ({ dispatch }, query) {
     return axios.post('/user/register', query)
         .then(responce => {
             dispatch('checkLoggedIn')
-        })
+        }).catch(() => {})
 }
 
 export function checkLoggedIn ({ commit }) {

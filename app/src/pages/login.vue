@@ -14,7 +14,7 @@ div
 </template>
 <script>
 import NavBar from '../components/NavBar.vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default {
     data () {
@@ -24,7 +24,10 @@ export default {
         }
     },
     computed: {
-        ...mapState({})
+        ...mapState({}),
+        ...mapGetters({
+            isLogined: 'user/isLogined'
+        })
     },
     mounted () {
     },
@@ -32,12 +35,20 @@ export default {
         login () {
             const username = this.username
             const password = this.password
-            this.$store.dispatch('user/login', { username, password })
+            return this.$store.dispatch('user/login', { username, password }).then(() => {
+                if (this.isLogined) {
+                    this.$router.push('index')
+                } else {
+                    this.$toast.open('Login Failed')
+                }
+            })
         },
         register () {
             const username = this.username
             const password = this.password
-            this.$store.dispatch('user/register', { username, password })
+            return this.$store.dispatch('user/register', { username, password }).then(() => {
+                this.$toast.open('Please login with your username and password')
+            })
         }
     },
     components: {

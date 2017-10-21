@@ -56,27 +56,27 @@ describe('test for pages', function () {
             expect(login.components).to.have.any.keys('nav-bar')
         })
         describe('methods', function () {
-            it('login', function () {
+            it('login', function (done) {
                 sinon.spy(instance.$store, 'dispatch')
                 sinon.spy(instance.$router, 'push')
-                instance.login()
+                instance.login().then(() => {
+                    expect(instance.$store.dispatch).to.be.called
+                    expect(instance.$router.push).to.be.called
 
-                expect(instance.$store.dispatch).to.be.called
-                expect(instance.$router.push).to.be.called
-
-                instance.$store.dispatch.restore()
-                instance.$router.push.restore()
+                    instance.$store.dispatch.restore()
+                    instance.$router.push.restore()
+                    done()
+                })
             })
-            it('register', function () {
+            it('register', function (done) {
                 sinon.spy(instance.$store, 'dispatch')
                 sinon.spy(instance.$router, 'push')
-                instance.register()
+                instance.register().then(() => {
+                    expect(instance.$store.dispatch).to.be.called
 
-                expect(instance.$store.dispatch).to.be.called
-                expect(instance.$router.push).to.be.called
-
-                instance.$store.dispatch.restore()
-                instance.$router.push.restore()
+                    instance.$store.dispatch.restore()
+                    done()
+                })
             })
         })
         it('logo', function () {

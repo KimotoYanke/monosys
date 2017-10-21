@@ -199,7 +199,7 @@ describe('test for components', function () {
     describe('UserNavItem', function () {
         it('username', function () {
             const instance = getInstance(UserNavItem)
-            expect(instance.username).to.equal(store.state.username)
+            expect(instance.username).to.equal(store.state.user.username)
         })
         it('logout', function () {
             const instance = getInstance(UserNavItem)
