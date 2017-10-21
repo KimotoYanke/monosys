@@ -58,13 +58,10 @@ describe('test for pages', function () {
         describe('methods', function () {
             it('login', function (done) {
                 sinon.spy(instance.$store, 'dispatch')
-                sinon.spy(instance.$router, 'push')
                 instance.login().then(() => {
                     expect(instance.$store.dispatch).to.be.called
-                    expect(instance.$router.push).to.be.called
 
                     instance.$store.dispatch.restore()
-                    instance.$router.push.restore()
                     done()
                 })
             })
