@@ -42,7 +42,6 @@ Vue.use(Buefy, {
 })
 
 const mock = new MockAdapter(axios)
-mock.onGet('/loggedin').reply(200, '')
 mock.onGet('https://www.googleapis.com/books/v1/volumes/?q=isbn:9784774166346')
     .reply(200, JSON.stringify(googleIsbn))
 mock.onGet('/user/loggedin').reply(200, 'a_user')
